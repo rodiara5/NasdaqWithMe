@@ -1,0 +1,60 @@
+
+server:
+    servlet:
+        # 한글깨짐 처리 
+        encoding:
+            force-response: true
+    error:
+        whitelabel:
+            enabled: false
+        path: /errors
+
+spring:
+    output:
+        ansi:
+            enabled: always
+
+    
+    # mustache 설정
+    mustache:
+        prefix: classpath:templates/
+        check-template-location: true
+        suffix: .html # .html파일을 모두 mustache으로 인식
+        servlet:
+            cache: false
+    # 데이터베이스 설정 
+    datasource:
+        url: jdbc:mysql://nasdaq-db.clcgk04eeism.ap-northeast-2.rds.amazonaws.com:3306/nasdaq?userSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+        username: admin
+        password: admin1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    # jpa 설정 
+    jpa:
+        hibernate:
+            ddl-auto: update
+            transaction:
+                jta:
+                    platform: org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform
+        properties:
+            hibernate:
+                show_sql: true
+                format_sql: true
+                dialect:
+                    org.hibernate.dialect.MySQLDialect
+   
+    sql:
+        init:
+            platform: mysql
+            mode: always
+    devtools:
+        livereload:
+            enabled: true
+        freemarker:
+            cache: false
+        thymeleaf:
+            cache: false
+
+
+
+            
+        

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+<body id="test">
+    {{currencyRates}}
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currencyRates = $("#test").val();
+
+            document.querySelectorAll("#from-currency-list a").forEach((menu) => menu.addEventListener("click", function () {
+                document.getElementById("from-button").innerHTML = this.innerHTML;
+                fromCurrency = this.textContent;
+                convert();
+            }));
+
+            document.querySelectorAll("#to-currency-list a").forEach((menu) => menu.addEventListener("click", function () {
+                document.getElementById("to-button").innerHTML = this.innerHTML;
+                toCurrency = this.textContent;
+                convert();
+            }));
+
+            function convert() {
+                let amount = document.getElementById("from-input").value;
+                let convertedAmount = amount * currencyRates[fromCurrency][toCurrency];
+                document.getElementById("to-input").value = convertedAmount;
+            }
+
+            document.getElementById("from-input").addEventListener("input", convert);
+            document.getElementById("to-input").addEventListener("input", function () {
+                let amount = document.getElementById("to-input").value;
+                let convertedAmount = amount * currencyRates[toCurrency][fromCurrency];
+                document.getElementById("from-input").value = convertedAmount;
+            });
+        });
+    </script>
+</head>
+</html>

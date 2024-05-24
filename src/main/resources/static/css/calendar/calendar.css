@@ -1,0 +1,52 @@
+/* 전체 캘린더 스타일 */
+#calendar {
+    width: 100%; /* 전체 너비 사용 */
+    height: 95vh; /* 전체 높이 사용 */
+    display: flex;
+    justify-content: center;
+}
+
+/* 이벤트 스타일 */
+.fc-event {
+    background-color: #d5a6bd; /* 이벤트 배경색 */
+    color: black; /* 이벤트 텍스트 색상 */
+    border-radius: 5px; /* 이벤트 테두리를 둥글게 만듭니다 */
+    padding: 1px; /* 이벤트 내부 여백 */
+    font-size: 12px; /* 이벤트 텍스트 크기 */
+    cursor: pointer;
+}
+
+.fc-day-mon a,
+.fc-day-tue a,
+.fc-day-wed a,
+.fc-day-thu a,
+.fc-day-fri a {
+    color: black;
+    text-decoration: none;
+}
+.fc-day-sun a {
+    color: red;
+    text-decoration: none;
+}
+.fc-day-sat a {
+    color: blue;
+    text-decoration: none;
+}
+.popover {
+    z-index: 1060; /* 팝오버가 보통 1050입니다. 여기에 맞게 설정해주세요 */
+}
+.event-tooltip {
+    position: absolute;
+    z-index: 9999;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+:root {
+    --fc-button-text-color: black;
+    }
+:root {
+    --fc-button-bg-color: white;
+    }

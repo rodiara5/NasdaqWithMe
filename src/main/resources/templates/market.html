@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>나스닥 나랑해 시장정보</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/vendors/feather/feather.css">
+    <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+    <!-- 계산기 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/calcstlye.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="/js/select.dataTables.min.css">
+    <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="/images/favicon.png" />
+    </head>
+    <body>
+    < class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo mr-5" href="/v1/nasdaq/index"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="/v1/nasdaq/index"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span>
+            </button>
+            <ul class="navbar-nav mr-lg-2">
+                <li class="nav-item nav-search d-none d-lg-block">
+                    <div class="input-group">
+                    <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                        <span class="input-group-text" id="search">
+                        <i class="icon-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-nav-right">
+                <!-- 홈 이동 -->
+                <li class="nav-item px-2 "><a class="nav-link" href="/v1/nasdaq/index">Home</a></li>
+                <!-- 시장정보페이지 이동 -->
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                        Market
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item"  href="/v1/nasdaq/market/query?dt={{marketDt}}&marketTitle=Futures">
+                            <i class="ti-settings text-primary"></i>
+                            Futures
+                        </a>
+                        <a class="dropdown-item"  href="/v1/nasdaq/market/query?dt={{marketDt}}&marketTitle=Currencies">
+                            <i class="ti-power-off text-primary"></i>
+                            Currencies
+                        </a>
+                        <a class="dropdown-item"  href="/v1/nasdaq/market/query?dt={{marketDt}}&marketTitle=World%20Indices">
+                            <i class="ti-power-off text-primary"></i>
+                            World Indices
+                        </a>
+                        <a class="dropdown-item" href="/v1/nasdaq/market/query?dt={{marketDt}}&marketTitle=US%20Treasury%20Bonds%20Rates">
+                            <i class="ti-power-off text-primary"></i>
+                            US Treasury Bonds Rat
+                        </a>
+                    </div>
+                </li>
+                <!-- 캘린더페이지이동 -->
+                <li class="nav-item px-2 "><a class="nav-link" href="/v1/nasdaq/calendar">Calendar</a></li>
+            </ul>
+        </div>
+        </nav>
+        
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+            <div id="settings-trigger"><i class="ti-settings"></i></div>
+            <div id="theme-settings" class="settings-panel">
+            <i class="settings-close ti-close"></i>
+            <p class="settings-heading">SIDEBAR SKINS</p>
+            <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
+            <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+            <p class="settings-heading mt-2">HEADER SKINS</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default"></div>
+            </div>
+            </div>
+        </div>
+        <div id="right-sidebar" class="settings-panel">
+            <i class="settings-close ti-close"></i>
+            <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+            </li>
+            </ul>
+            <div class="tab-content" id="setting-content">
+            <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+                <div class="add-items d-flex px-3 mb-0">
+                <form class="form w-100">
+                    <div class="form-group d-flex">
+                    <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
+                    <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                    </div>
+                </form>
+                </div>
+                <div class="list-wrapper px-3">
+                <ul class="d-flex flex-column-reverse todo-list">
+                    <li>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        <input class="checkbox" type="checkbox">
+                        Team review meeting at 3.00 PM
+                        </label>
+                    </div>
+                    <i class="remove ti-close"></i>
+                    </li>
+                    <li>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        <input class="checkbox" type="checkbox">
+                        Prepare for presentation
+                        </label>
+                    </div>
+                    <i class="remove ti-close"></i>
+                    </li>
+                    <li>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        <input class="checkbox" type="checkbox">
+                        Resolve all the low priority tickets due today
+                        </label>
+                    </div>
+                    <i class="remove ti-close"></i>
+                    </li>
+                    <li class="completed">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" checked>
+                        Schedule meeting for next week
+                        </label>
+                    </div>
+                    <i class="remove ti-close"></i>
+                    </li>
+                    <li class="completed">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        <input class="checkbox" type="checkbox" checked>
+                        Project review
+                        </label>
+                    </div>
+                    <i class="remove ti-close"></i>
+                    </li>
+                </ul>
+                </div>
+                <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
+                <div class="events pt-4 px-3">
+                <div class="wrapper d-flex mb-2">
+                    <i class="ti-control-record text-primary mr-2"></i>
+                    <span>Feb 11 2018</span>
+                </div>
+                <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
+                <p class="text-gray mb-0">The total number of sessions</p>
+                </div>
+                <div class="events pt-4 px-3">
+                <div class="wrapper d-flex mb-2">
+                    <i class="ti-control-record text-primary mr-2"></i>
+                    <span>Feb 7 2018</span>
+                </div>
+                <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
+                <p class="text-gray mb-0 ">Call Sarah Graves</p>
+                </div>
+            </div>
+            <!-- To do section tab ends -->
+            <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+                <div class="d-flex align-items-center justify-content-between border-bottom">
+                <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+                <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+                </div>
+                <ul class="chat-list">
+                <li class="list active">
+                    <div class="profile"><img src="/images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                    <div class="info">
+                    <p>Thomas Douglas</p>
+                    <p>Available</p>
+                    </div>
+                    <small class="text-muted my-auto">19 min</small>
+                </li>
+                <li class="list">
+                    <div class="profile"><img src="/images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                    <div class="info">
+                    <div class="wrapper d-flex">
+                        <p>Catherine</p>
+                    </div>
+                    <p>Away</p>
+                    </div>
+                    <div class="badge badge-success badge-pill my-auto mx-2">4</div>
+                    <small class="text-muted my-auto">23 min</small>
+                </li>
+                <li class="list">
+                    <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                    <div class="info">
+                    <p>Daniel Russell</p>
+                    <p>Available</p>
+                    </div>
+                    <small class="text-muted my-auto">14 min</small>
+                </li>
+                <li class="list">
+                    <div class="profile"><img src="/images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                    <div class="info">
+                    <p>James Richardson</p>
+                    <p>Away</p>
+                    </div>
+                    <small class="text-muted my-auto">2 min</small>
+                </li>
+                <li class="list">
+                    <div class="profile"><img src="/images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                    <div class="info">
+                    <p>Madeline Kennedy</p>
+                    <p>Available</p>
+                    </div>
+                    <small class="text-muted my-auto">5 min</small>
+                </li>
+                <li class="list">
+                    <div class="profile"><img src="/images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                    <div class="info">
+                    <p>Sarah Graves</p>
+                    <p>Available</p>
+                    </div>
+                    <small class="text-muted my-auto">47 min</small>
+                </li>
+                </ul>
+            </div>
+            <!-- chat tab ends -->
+            </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">UI Elements</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/pages/ui-features/buttons.html">Buttons</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/pages/ui-features/typography.html">Typography</a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Form elements</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="form-elements">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/pages/forms/basic_elements.html">Basic Elements</a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+                <i class="icon-bar-graph menu-icon"></i>
+                <span class="menu-title">Charts</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="charts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/pages/charts/chartjs.html">ChartJs</a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                <i class="icon-grid-2 menu-icon"></i>
+                <span class="menu-title">Tables</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="tables">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/pages/tables/basic-table.html">Basic table</a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                <i class="icon-contract menu-icon"></i>
+                <span class="menu-title">Icons</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="icons">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/pages/icons/mdi.html">Mdi icons</a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="icon-head menu-icon"></i>
+                <span class="menu-title">User Pages</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/pages/samples/login.html"> Login </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/pages/samples/register.html"> Register </a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+                <i class="icon-ban menu-icon"></i>
+                <span class="menu-title">Error pages</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="error">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/pages/samples/error-404.html"> 404 </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/pages/samples/error-500.html"> 500 </a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/documentation/documentation.html">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Documentation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/documentation/documentation.html">
+                <i class="mdi mdi-calendar menu-icon"></i> 
+                <span class="menu-title">Calendar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pages/documentation/documentation.html">
+                <i class="menu-icon mdi mdi-chart-line"></i>
+                <span class="menu-title">Market Indicator</span>
+                </a>
+            </li>
+            </ul>
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title mb-0">{{marketTitle}}</h2>
+                        <div class="col-12">
+                            <div class="justify-content-end d-flex">
+                                <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+                                    <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <i class="mdi mdi-chart-gantt"></i> 시장 지표
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
+                                        <a class="dropdown-item" href="?dt={{marketDt}}&marketTitle=Futures">원자재</a>
+                                        <a class="dropdown-item" href="?dt={{marketDt}}&marketTitle=World%20Indices">세계 지수</a>
+                                        <a class="dropdown-item" href="?dt={{marketDt}}&marketTitle=Currencies">환율</a>
+                                        <a class="dropdown-item" href="?dt={{marketDt}}&marketTitle=US%20Treasury%20Bonds%20Rates">미국 채권</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-title mb-0">
+                        <div class="row">                         
+                            <div class="col-12">
+                                <table class="table table-hover table-striped admin_board_wrap" id="user-admin">
+                                    <thead class="thead-light admin_boardList">
+                                    <tr>
+                                        <th>이름</th>
+                                        <th>종가</th>
+                                        <th>변화</th>
+                                        <th>변화 %</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#marketList}}
+                                            <tr class="admin_board_content">
+                                                <td class="marketInfo-tooltip">{{marketName}}</td>
+                                                <td>{{marketClose}}</td>
+                                                <td class="PositiveOrNegative">{{marketChange}}</td>
+                                                <td class="UpDown">{{PerChange}}</td>
+                                            </tr>
+                                        {{/marketList}}
+                                    </tbody>
+                                </table>
+                            </div>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var PositiveOrNegative = document.querySelectorAll('.PositiveOrNegative');
+                                        var UpDowns = document.querySelectorAll('.UpDown');
+                
+                                        PositiveOrNegative.forEach(function(cell, index) {
+                                            var marketChangeText = cell.textContent.trim();
+                                            var UpDown = UpDowns[index];
+                
+                                            if (marketChangeText.startsWith('-')) {
+                                                cell.classList.add('text', 'text-danger');
+                                                UpDown.classList.add('text', 'text-danger', 'ti-arrow-down');
+                                            } else {
+                                                cell.classList.add('text', 'text-success');
+                                                UpDown.classList.add('text', 'text-success', 'ti-arrow-up');
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 계산기 -->
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="title">환율 계산기</h3>
+                                <div class="dropdown">
+                                    <button class="dropbtn" id="from-button"><img class="flag" src="https://w.namu.la/s/82e8f0ba23b7861b4ae69bcf0523076d2151136ad3591c81e8cb49e563a6c46a9faaaa519f1f60a1f581714ddcf63c8c8c22d79c9e93ba0b010ca00663baf829b7bc8efa856ec48a7118284178eb393c69c6dc5c5420946ed59abea255a7863e" width="18px" height="12px">USD</button>
+                                    <ul class="dropdown-content" id="from-currency-list1">
+                                    <li><a href="#"><img class="flag" src="https://w.namu.la/s/82e8f0ba23b7861b4ae69bcf0523076d2151136ad3591c81e8cb49e563a6c46a9faaaa519f1f60a1f581714ddcf63c8c8c22d79c9e93ba0b010ca00663baf829b7bc8efa856ec48a7118284178eb393c69c6dc5c5420946ed59abea255a7863e" width="18px" height="12px">USD</a></li>
+                                        <li><a href="#"><img class="flag" src="https://w.namu.la/s/43a07e65f573eb41fffe67ac0d1008fa73b5c7a04a004ff9004ddf0680524c5c5bd8a30c724fd7966bd7d3a2f60d0bd17c3cc159dd41f704f9b6dc188a21346dcf6aed9b29d4349c28d0fe50f74fcbe2c48ee4eccfb75136d68f5cde27f4b09a" width="18px" height="12px">HKD</a></li>
+                                        <li><a href="#"><img class="flag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALYAAAB5CAMAAACjkCtXAAAAeFBMVEX///+8AC22AAC7ACq5AB26ACG7ACX++vu4AA24ABG5ABm5ABv+/Pzx1drOcHe7Eifmt7zy297qwce8Gy/rx8vfp6rDOE356+3alpv68PL25efdn6XVi43TfYLQdnzGRlnITl3KXmfBNETFTVbDRk3JVWPHWF++LDdX00ngAAACi0lEQVR4nO2bi5KqMAxAsbS83+IKIqLruv7/H166zN7VXVEenYbM5HzBmU5Ik5AaBkEQBEEQBEEQBEEQBBaCwLaDANpiDHaYVPv6EEWHel8loQ3tM4AyrZprLHyfcyE4930RX5sqLaG9nhIWZ+ZY5uoO03LYcR9Cu/Vh50fuW6uHWD4/5ouMluzExGPnDsFOGbTjH9KL23PQN0fuXlJoz3uqmL+SlvC4gja9Yffpmq+dJab7uYO2/SZ894ZJS7z3heSUhL2M6lsslkAbSzJvYID8DxRvARklYSOtW2/4887FaOvWW+Sw1qkzwbr1dkATeHl+ejH2I86QxVU0IvPd40Vw1hmbar1aMbB0sr1OCuwO87oF0i4mh4jEK2CsdzNCRMJgqpODP0/bP0BYh+sZkS0x1xBF1bzIlkBEd/C7051w3Kb+7nJOzv6G6S9NoonX+i1C+1VZfsyOkTZKPnRXJvmojqYPS3eUbFwV2u5Gs3Y0aMDwCq47uN/UBMmbXutg6GDkOaardwK+VZC1JUxv9Zqq0tbbU+aqtPVWUyqu9i9tva0ZaetEWWzrvd2RZhKkeRvpLYm0JsFaAW4cFdra622k3Q3SXhJp567kngSYk9gKplIWwM4Dzhkg1omrcZh53B7IfBvr3wSk/26M3bw/ZWCLJTj/S875KoG+xw6k/9yRbjhg3SfBur3TphM+dleKL2BXqj1vZ9xmmrOAs5bg3ANsr8vT8K3L02K2Lg2kO64G1o3iluzyfGnUYpdFZJDf2HnDvf5t+WaZ2/KSsDg+epvgsqZYTP54iHwJso6F73UvQbyvlyDFwl+CdJRhUhV1HUV1XSB5d/ODfOUE7UAQBEEQBEEQBEEQBDGcf6ysKSqK2rjgAAAAAElFTkSuQmCC" width="18px" height="12px">JPY</a></li>
+                                    <li><a href="#"><img class="flag" src="https://w.namu.la/s/af7b5230d02ee3d208f9ecd43670b27a4d49ab08bf387a4b49ec215a4bda3d2c549a29921155e3cb44e0a303dfd8e6f167f90a1b6bd3b3133e6cabd25c8082b8cf8689b504b8c61288ab403a746520ae8f8a4baa7bb9dd2e776558b1e9f798a6" width="18px" height="12px">MXN</a></li>
+                                    </ul>
+                                </div>
+                                <div class="input-area">
+                                    <input type="number" id="frominput"  placeholder="금액을 입력하세요">
+                                    <div id="fromNumToKorea" class="Number">달러</div>
+                                </div>
+                            </div>
+                            <h1 class="simbol">=</h1>
+                                <div class="dropdown">
+                                    <button class="dropbtn" id="to-button"><img class="flag" src="https://w.namu.la/s/82e8f0ba23b7861b4ae69bcf0523076d2151136ad3591c81e8cb49e563a6c46a9faaaa519f1f60a1f581714ddcf63c8c8c22d79c9e93ba0b010ca00663baf829b7bc8efa856ec48a7118284178eb393c69c6dc5c5420946ed59abea255a7863e" width="18px" height="12px">USD</button>
+                                    <ul class="dropdown-content" id="to-currency-list2">
+                                        <li><a href="#"><img class="flag" src="https://w.namu.la/s/82e8f0ba23b7861b4ae69bcf0523076d2151136ad3591c81e8cb49e563a6c46a9faaaa519f1f60a1f581714ddcf63c8c8c22d79c9e93ba0b010ca00663baf829b7bc8efa856ec48a7118284178eb393c69c6dc5c5420946ed59abea255a7863e" width="18px" height="12px">USD</a></li>
+                                        <li><a href="#"><img class="flag" src="https://w.namu.la/s/43a07e65f573eb41fffe67ac0d1008fa73b5c7a04a004ff9004ddf0680524c5c5bd8a30c724fd7966bd7d3a2f60d0bd17c3cc159dd41f704f9b6dc188a21346dcf6aed9b29d4349c28d0fe50f74fcbe2c48ee4eccfb75136d68f5cde27f4b09a" width="18px" height="12px">HKD</a></li>
+                                        <li><a href="#"><img class="flag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALYAAAB5CAMAAACjkCtXAAAAeFBMVEX///+8AC22AAC7ACq5AB26ACG7ACX++vu4AA24ABG5ABm5ABv+/Pzx1drOcHe7Eifmt7zy297qwce8Gy/rx8vfp6rDOE356+3alpv68PL25efdn6XVi43TfYLQdnzGRlnITl3KXmfBNETFTVbDRk3JVWPHWF++LDdX00ngAAACi0lEQVR4nO2bi5KqMAxAsbS83+IKIqLruv7/H166zN7VXVEenYbM5HzBmU5Ik5AaBkEQBEEQBEEQBEEQBBaCwLaDANpiDHaYVPv6EEWHel8loQ3tM4AyrZprLHyfcyE4930RX5sqLaG9nhIWZ+ZY5uoO03LYcR9Cu/Vh50fuW6uHWD4/5ouMluzExGPnDsFOGbTjH9KL23PQN0fuXlJoz3uqmL+SlvC4gja9Yffpmq+dJab7uYO2/SZ894ZJS7z3heSUhL2M6lsslkAbSzJvYID8DxRvARklYSOtW2/4887FaOvWW+Sw1qkzwbr1dkATeHl+ejH2I86QxVU0IvPd40Vw1hmbar1aMbB0sr1OCuwO87oF0i4mh4jEK2CsdzNCRMJgqpODP0/bP0BYh+sZkS0x1xBF1bzIlkBEd/C7051w3Kb+7nJOzv6G6S9NoonX+i1C+1VZfsyOkTZKPnRXJvmojqYPS3eUbFwV2u5Gs3Y0aMDwCq47uN/UBMmbXutg6GDkOaardwK+VZC1JUxv9Zqq0tbbU+aqtPVWUyqu9i9tva0ZaetEWWzrvd2RZhKkeRvpLYm0JsFaAW4cFdra622k3Q3SXhJp567kngSYk9gKplIWwM4Dzhkg1omrcZh53B7IfBvr3wSk/26M3bw/ZWCLJTj/S875KoG+xw6k/9yRbjhg3SfBur3TphM+dleKL2BXqj1vZ9xmmrOAs5bg3ANsr8vT8K3L02K2Lg2kO64G1o3iluzyfGnUYpdFZJDf2HnDvf5t+WaZ2/KSsDg+epvgsqZYTP54iHwJso6F73UvQbyvlyDFwl+CdJRhUhV1HUV1XSB5d/ODfOUE7UAQBEEQBEEQBEEQBDGcf6ysKSqK2rjgAAAAAElFTkSuQmCC" width="18px" height="12px">JPY</a></li>
+                                    <li><a href="#"><img class="flag" src="https://w.namu.la/s/af7b5230d02ee3d208f9ecd43670b27a4d49ab08bf387a4b49ec215a4bda3d2c549a29921155e3cb44e0a303dfd8e6f167f90a1b6bd3b3133e6cabd25c8082b8cf8689b504b8c61288ab403a746520ae8f8a4baa7bb9dd2e776558b1e9f798a6" width="18px" height="12px">MXN</a></li>
+                                    </ul>
+                                </div>
+                                <div class="input-area">
+                                    <input type="number" id="to-input">
+                                    <div id="toNumToKorea" class="Number">달러</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+        </div>
+    </body>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+            <div class="tiles dark selected">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.  Premium <a href="https://github.com/aplay3/final_project" target="_blank">git repository</a> from 성민없는 성민팀. All rights reserved.</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+            </div>
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Worker 권영후,김동섭,김하은,함형록,(유성민)</span> 
+            </div>
+            </div>
+            </footer> 
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+        </div>   
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <!-- plugins:js -->
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/vendors/chart.js/Chart.min.js"></script>
+    <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="/js/dataTables.select.min.js"></script>
+
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/js/off-canvas.js"></script>
+    <script src="/js/hoverable-collapse.js"></script>
+    <script src="/js/template.js"></script>
+    <script src="/js/settings.js"></script>
+    <script src="/js/todolist.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="/js/calc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/Chart.roundedBarCharts.js"></script>
+    <!-- End custom js for this page-->
+
+</html>
+
