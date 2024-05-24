@@ -3,6 +3,7 @@ env:
   git-credential-helper: yes
   variables:
     # docker 파라미터 정의
+    ECS_CONATINER_NAME: nasdaq-container
     IMAGE_REPO_NAME: nasdaq-ecr # aws ecr에 등록이 되어 있는 name
     IMAGE_TAG: latest
     AWS_DEFAULT_REGION: ap-northeast-2
