@@ -44,20 +44,20 @@ public class mainController {
         List<Map<String, Object>> negative_combinedData = new ArrayList<>();
         List<Map<String, Object>> positive_combinedData = new ArrayList<>();
         
-        for(PredictpriceDto dto:postiive_dtos){
-            DailyUpdateDto Ddto = dailyUpdateService.getOneDailyInfo(dto.getTicker(), "2024-05-20");
-            positive_news.add(Ddto);
+        // for(PredictpriceDto dto:postiive_dtos){
+        //     DailyUpdateDto Ddto = dailyUpdateService.getOneDailyInfo(dto.getTicker(), "2024-05-20");
+        //     positive_news.add(Ddto);
 
-        }
-        for(PredictpriceDto dto:negative_dtos){
-            DailyUpdateDto Ddto = dailyUpdateService.getOneDailyInfo(dto.getTicker(), "2024-05-20");
-            negative_news.add(Ddto);
-        }
+        // }
+        // for(PredictpriceDto dto:negative_dtos){
+        //     DailyUpdateDto Ddto = dailyUpdateService.getOneDailyInfo(dto.getTicker(), "2024-05-20");
+        //     negative_news.add(Ddto);
+        // }
         for(int i = 0; i<negative_dtos.size();i++){
             Map<String, Object> map = new HashMap<>();
             map.put("ticker",negative_dtos.get(i).getTicker());
             map.put("compare_rate",negative_dtos.get(i).getCompare_rate());
-            map.put("news_summary",negative_news.get(i).getNews_summary());
+            // map.put("news_summary",negative_news.get(i).getNews_summary());
             negative_combinedData.add(map);
         }
 
@@ -65,7 +65,7 @@ public class mainController {
             Map<String, Object> map = new HashMap<>();
             map.put("ticker",postiive_dtos.get(i).getTicker());
             map.put("compare_rate",postiive_dtos.get(i).getCompare_rate());
-            map.put("news_summary",positive_news.get(i).getNews_summary());
+            // map.put("news_summary",positive_news.get(i).getNews_summary());
             positive_combinedData.add(map);
         }
         model.addAttribute("positive", positive_combinedData);
