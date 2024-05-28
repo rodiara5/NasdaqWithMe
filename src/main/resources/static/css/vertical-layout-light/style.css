@@ -30663,3 +30663,43 @@ div.tagsinput span.tag a {
   background-color: #f0f0f0;
 }
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
+
+.detailed-report-carousel {
+  position: relative;
+}
+
+.slider-wrapper {
+  overflow: hidden;
+}
+
+.slider-container {
+  display: flex;
+}
+
+.slider-item {
+  flex: 0 0 100%; /* 한 번에 하나의 요소만 보이도록 설정 */
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #f8f9fa;
+  border: none;
+  color: #495057;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.prev-btn:hover, .next-btn:hover {
+  background-color: #e9ecef;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}

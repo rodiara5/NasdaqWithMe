@@ -28,5 +28,14 @@ public class Nasdaq100Entity {
     @NotBlank
     private String name;
 
+    private String established;
+
+    private String CEO;
+
+    private String products;
+
+    private String milestones;
+
+    private String industry;
 
 }

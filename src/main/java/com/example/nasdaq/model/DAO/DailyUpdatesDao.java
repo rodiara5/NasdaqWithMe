@@ -6,8 +6,7 @@ import com.example.nasdaq.model.Entity.DailyUpdateEntity;
 public interface DailyUpdatesDao {
     
     // select
-    // public DailyUpdateEntity getOneDailyInfo(String ticker, Date dailydate);
-    public DailyUpdateEntity getOneDailyInfo(String ticker, String dailydate);
+    public List<DailyUpdateEntity> getOneDailyInfo(String ticker, String dailydate);
 
     public List<DailyUpdateEntity> getAllDailyInfo();
 

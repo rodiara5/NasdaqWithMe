@@ -13,15 +13,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class DailyUpdateDto {
+    
+    private Long id;
+    
     private String ticker;
 
     private String dailydate;
 
     private String name;
 
-    private String news_summary;
+    private String industry;
 
-    private String news_sentiment;
+    private String news_summary;
 
     private String market_cap;
 
@@ -29,5 +32,11 @@ public class DailyUpdateDto {
 
     private double per;
 
+    private double peg;
+
+    private double psr;
+
     private double pbr;
+
+    private double ev_ebitda;
 }

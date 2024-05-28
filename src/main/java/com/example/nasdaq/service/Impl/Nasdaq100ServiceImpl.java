@@ -24,6 +24,11 @@ public class Nasdaq100ServiceImpl implements Nasdaq100Service{
         Nasdaq100Dto dto = new Nasdaq100Dto();
         dto.setTicker(entity.getTicker());
         dto.setName(entity.getName());
+        dto.setEstablished(entity.getEstablished());
+        dto.setCEO(entity.getCEO());
+        dto.setProducts(entity.getProducts());
+        dto.setMilestones(entity.getMilestones());
+        dto.setIndustry(entity.getIndustry());
         return dto;
     }
 
@@ -36,6 +41,11 @@ public class Nasdaq100ServiceImpl implements Nasdaq100Service{
             Nasdaq100Dto dto = new Nasdaq100Dto();
             dto.setTicker(entity.getTicker());
             dto.setName(entity.getName());
+            dto.setEstablished(entity.getEstablished());
+            dto.setCEO(entity.getCEO());
+            dto.setProducts(entity.getProducts());
+            dto.setMilestones(entity.getMilestones());
+            dto.setIndustry(entity.getIndustry());
 
             dtos.add(dto);
         }

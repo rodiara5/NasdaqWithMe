@@ -10,22 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.nasdaq.model.DTO.DailyUpdateDto;
+import com.example.nasdaq.model.DTO.IndustryDto;
 import com.example.nasdaq.service.DailyUpdateService;
-import com.example.nasdaq.service.Nasdaq100Service;
-import com.example.nasdaq.service.StockDataService;
+import com.example.nasdaq.service.IndustryService;
 
 @RestController
 @RequestMapping("/api/v1/nasdaq")
 public class RestApiController {
     
-    @Autowired
-    private Nasdaq100Service nasdaq100Service;
 
     @Autowired
     private DailyUpdateService dailyUpdateService;
 
     @Autowired
-    private StockDataService stockDataService;
+    private IndustryService industryService;
 
 
     // java script에서 사용할 rest handler
@@ -39,5 +38,19 @@ public class RestApiController {
         response.put("recent_date", recent_date);
 
         return response;
+    }
+
+    @GetMapping("/industry")
+    public IndustryDto industry(@RequestParam String industry) {
+        IndustryDto dto = industryService.getIndustryAvg(industry);
+        return dto;
+    }
+
+    @GetMapping("/ratios")
+    public DailyUpdateDto dailyUpdates(@RequestParam String ticker) {
+        String recentDate = dailyUpdateService.getMostRecentDate();
+        List<DailyUpdateDto> dtos = dailyUpdateService.getOneDailyInfo(ticker, recentDate);
+        DailyUpdateDto firstDto =  dtos.get(0);
+        return firstDto;
     }
 }

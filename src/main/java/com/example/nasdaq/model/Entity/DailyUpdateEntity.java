@@ -1,7 +1,9 @@
 package com.example.nasdaq.model.Entity;
 
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -20,25 +22,22 @@ import lombok.ToString;
 // @IdClass(dailyUpdatesPK.class)
 public class DailyUpdateEntity {
     
-    // @Id
-    // @NotBlank
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name="ticker")
-    // private Nasdaq100Entity ticker;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    // @Id
-    // @NotBlank
-    // private Date dailydate;
+    @NotBlank
+    private String dailydate;
 
-    @EmbeddedId
-    private dailyUpdatesPK dailyUpdatesPK;
+    @NotBlank
+    private String ticker;
 
     @NotBlank
     private String name;
 
-    private String news_summary;
+    private String industry;
 
-    private String news_sentiment;
+    private String news_summary;
 
     private String market_cap;
 
@@ -46,5 +45,11 @@ public class DailyUpdateEntity {
 
     private double per;
 
+    private double peg;
+
+    private double psr;
+
     private double pbr;
+
+    private double ev_ebitda;
 }

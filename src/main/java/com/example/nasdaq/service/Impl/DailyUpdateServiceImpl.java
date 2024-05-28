@@ -25,15 +25,18 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
 
         for(DailyUpdateEntity entity : entities) {
             DailyUpdateDto dto = new DailyUpdateDto();
-            dto.setTicker(entity.getDailyUpdatesPK().getTicker());
-            dto.setDailydate(entity.getDailyUpdatesPK().getDailydate());
+            dto.setTicker(entity.getTicker());
+            dto.setDailydate(entity.getDailydate());
             dto.setName(entity.getName());
+            dto.setIndustry(entity.getIndustry());
             dto.setNews_summary(entity.getNews_summary());
-            dto.setNews_sentiment(entity.getNews_sentiment());
             dto.setMarket_cap(entity.getMarket_cap());
             dto.setEnterprise_val(entity.getEnterprise_val());
             dto.setPer(entity.getPer());
+            dto.setPeg(entity.getPeg());
+            dto.setPsr(entity.getPsr());
             dto.setPbr(entity.getPbr());
+            dto.setEv_ebitda(entity.getEv_ebitda());
             
             dtos.add(dto);
         }
@@ -41,21 +44,31 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
     }
 
     @Override
-    public DailyUpdateDto getOneDailyInfo(String ticker, String dailydate) {
+    public List<DailyUpdateDto> getOneDailyInfo(String ticker, String dailydate) {
         // TODO Auto-generated method stub
 
-        DailyUpdateEntity entity = dailyUpdatesDao.getOneDailyInfo(ticker, dailydate);
-        DailyUpdateDto dto = new DailyUpdateDto();
-        dto.setTicker(entity.getDailyUpdatesPK().getTicker());
-            dto.setDailydate(entity.getDailyUpdatesPK().getDailydate());
+        List<DailyUpdateEntity> entities = dailyUpdatesDao.getOneDailyInfo(ticker, dailydate);
+        List<DailyUpdateDto> dtos = new ArrayList<>();
+        for(DailyUpdateEntity entity : entities) {
+            DailyUpdateDto dto = new DailyUpdateDto();
+        
+            dto.setTicker(entity.getTicker());
+            dto.setDailydate(entity.getDailydate());
             dto.setName(entity.getName());
+            dto.setIndustry(entity.getIndustry());
             dto.setNews_summary(entity.getNews_summary());
-            dto.setNews_sentiment(entity.getNews_sentiment());
             dto.setMarket_cap(entity.getMarket_cap());
             dto.setEnterprise_val(entity.getEnterprise_val());
             dto.setPer(entity.getPer());
+            dto.setPeg(entity.getPeg());
+            dto.setPsr(entity.getPsr());
             dto.setPbr(entity.getPbr());
-        return dto;
+            dto.setEv_ebitda(entity.getEv_ebitda());
+
+            dtos.add(dto);
+        }
+        
+        return dtos;
     }
 
     @Override
@@ -71,7 +84,7 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
         List<DailyUpdateEntity> entities = dailyUpdatesDao.getTickersContaining(ticker);
         List<String> tickers = new ArrayList<>();
         for(DailyUpdateEntity entity : entities) {
-            String tick = entity.getDailyUpdatesPK().getTicker();
+            String tick = entity.getTicker();
             // 중복으로 들어오는 값 제거
             if(!tickers.contains(tick)){
                 tickers.add(tick);

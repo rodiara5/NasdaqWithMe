@@ -4,16 +4,28 @@ server:
         # 한글깨짐 처리 
         encoding:
             force-response: true
-    error:
-        whitelabel:
-            enabled: false
-        path: /errors
+    # error:
+    #     whitelabel:
+    #         enabled: false
+    #     path: /errors
+
+cloud:
+    aws:
+        s3:
+            bucket: mention-bucket.bucket
+        region:
+            static: ap-northeast-2
+            auto: false
+        stack:
+            auto: false
+        credentials:
+            access-key: AKIA2UC3EZ72I3S4NIGI
+            secret-key: # secret-key 입력 
 
 spring:
     output:
         ansi:
             enabled: always
-
     
     # mustache 설정
     mustache:

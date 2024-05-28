@@ -171,6 +171,7 @@
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                   <h2 class="font-weight-bold">{{name}}</h2>
                   <h5 class="font-weight-normal mb-0" id="ticker"><span class="text-primary">{{ticker}}</span></h5>
+                  <h5 class="font-weight-normal mb-0" id="industry"><span class="text-primary">{{Industry}}</span></h5>
                   <h6 class="font-weight-normal mb-0"><span class="text-primary" id="today-date">{{dailydate}}</span></h6>
                 </div>
                 <div class="col-12 col-xl-4">
@@ -183,12 +184,10 @@
                       <div id="dropdown-items-container">
                         <script>
                           const companyData = {'MSFT': 'microsoft-corp', 'AAPL': 'apple-computer-inc', 'NVDA': 'nvidia-corp', 'GOOG': 'google-inc-c', 'GOOGL': 'google-inc', 'AMZN': 'amazon-com-inc', 'META': 'facebook-inc', 'AVGO': 'avago-technologies', 'TSLA': 'tesla-motors', 'ASML': 'asml-holdings', 'COST': 'costco-whsl-corp-new', 'PEP': 'pepsico', 'NFLX': 'netflix,-inc.', 'AZN': 'astrazeneca-plc-ads', 'AMD': 'adv-micro-device', 'LIN': 'linde-plc', 'ADBE': 'adobe-sys-inc', 'TMUS': 'metropcs-communications', 'CSCO': 'cisco-sys-inc', 'QCOM': 'qualcomm-inc', 'INTU': 'intuit', 'PDD': 'pinduoduo', 'AMAT': 'applied-matls-inc', 'TXN': 'texas-instru', 'CMCSA': 'comcast-corp-new', 'AMGN': 'amgen-inc', 'ISRG': 'intuitive-surgical-inc', 'INTC': 'intel-corp', 'HON': 'honeywell-intl', 'MU': 'micron-tech', 'BKNG': 'priceline.com-inc', 'LRCX': 'lam-research-corp', 'VRTX': 'vertex-pharm', 'ADP': 'auto-data-process', 'REGN': 'regeneron-phar.', 'ABNB': 'airbnb-inc', 'ADI': 'analog-devices', 'MDLZ': 'mondelez-international-inc', 'PANW': 'palo-alto-netwrk', 'KLAC': 'kla-tencor-corp', 'SBUX': 'starbucks-corp', 'GILD': 'gilead-sciences-inc', 'SNPS': 'synopsys-inc', 'CDNS': 'cadence-design-system-inc', 'MELI': 'mercadolibre', 'CRWD': 'crowdstrike-holdings-inc', 'PYPL': 'paypal-holdings-inc', 'MAR': 'marriott-intl', 'CTAS': 'cintas-corp', 'CSX': 'csx-corp', 'WDAY': 'workday-inc', 'NXPI': 'nxp-semiconductors', 'ORLY': 'oreilly-automotive', 'CEG': 'constellation-energy', 'PCAR': 'paccar-inc', 'MNST': 'monster-beverage', 'MRVL': 'marvell-technology-group-ltd', 'ROP': 'roper-industries', 'CPRT': 'copart-inc', 'DASH': 'doordash-inc', 'DXCM': 'dexcom', 'FTNT': 'fortinet', 'MCHP': 'microchip-technology-inc', 'AEP': 'american-electric', 'KDP': 'dr-pepper-snapple', 'ADSK': 'autodesk-inc', 'TEAM': 'atlassian-corp-plc', 'LULU': 'lululemon-athletica', 'KHC': 'kraft-foods-inc', 'PAYX': 'paychex-inc', 'ROST': 'ross-stores-inc', 'MRNA': 'moderna', 'DDOG': 'datadog-inc', 'TTD': 'trade-desk-inc', 'ODFL': 'old-dominion-freight-line-inc', 'FAST': 'fastenal-co', 'IDXX': 'idexx-laboratorie', 'EXC': 'exelon-corp', 'CHTR': 'charter-communications', 'CSGP': 'costar-group', 'GEHC': 'ge-healthcare-holding-llc', 'FANG': 'diamondback-energy-inc', 'EA': 'electronic-arts-inc', 'VRSK': 'verisk-analytics-inc', 'CCEP': 'coca-cola-ent', 'CTSH': 'cognizant-technology-solutio', 'BKR': 'baker-hughes', 'BIIB': 'biogen-idec-inc', 'XEL': 'xcel-energy', 'ON': 'on-semiconductor', 'CDW': 'cdw-corp', 'ANSS': 'ansys', 'MDB': 'mongodb', 'DLTR': 'dollar-tree-inc', 'ZS': 'zscaler-inc', 'GFS': 'globalfoundries', 'TTWO': 'take-two-interactive', 'ILMN': 'illumina,-inc.', 'WBD': 'discovery-holding-co', 'WBA': 'walgreen-co', 'SIRI': 'sirius-satellite-radio-inc'};
-                          const todayDate = document.getElementById('today-date').textContent;
-                          console.log(todayDate);
                           for (const [stockCode, companyName] of Object.entries(companyData)) {
                             const dropdownItem = document.createElement('a');
                             dropdownItem.classList.add('dropdown-item');
-                            dropdownItem.href = `/v1/nasdaq/details?ticker=${stockCode}&dailydate=${todayDate}`;
+                            dropdownItem.href = `/v1/nasdaq/details?ticker=${stockCode}`;
                             dropdownItem.textContent = `${companyName} - ${stockCode}`;
                             document.getElementById('dropdown-items-container').appendChild(dropdownItem);
                           }
@@ -204,55 +203,51 @@
           <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
               <div class="card tale-bg">
-                <div class="card-people mt-auto">
-                  <img src="/images/dashboard/people.svg" alt="people">
-                  <div class="weather-info">
-                    <div class="d-flex">
-                      <div>
-                        <h2 class="mb-0 font-weight-normal" id="today-date">{{dailydate}}</h2>
-                      </div>
-                      <div class="ml-2">
-                        <h4 class="location font-weight-normal">Seoul</h4>
-                        <h6 class="font-weight-normal">Korea</h6>
-                      </div>
+                <div class="card-body">
+                  <p class="font-weight-large" id="today-date">{{ticker}} 기업정보</p>
+                  <div class="card">
+                    {{#nasdaq100}}
+                    <div class="card-body">
+                      <p class="font-weight-medium">{{established}}</p>
+                      <p class="font-weight-medium">{{CEO}}</p>
+                      <p class="font-weight-medium">{{products}}</p>
+                      <p class="font-weight-medium">{{milestones}}</p>
+                      <p class="font-weight-medium">{{industry}}</p>
                     </div>
+                    {{/nasdaq100}}
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-6 grid-margin">
+              <div id="newsSummary" class="detailed-report-carousel position-static pt-2">
+                <div class="slider-wrapper">
+                  <div class="slider-container">
+                    {{#summary}}
+                    <div class="slider-item">
+                      <div class="card card-gemini2">
+                        <div class="card-body">
+                          <p class="font-weight-large">오늘의 {{ticker}} 뉴스요약</p>
+                          <div class="card">
+                            <div class="card-body">
+                              <p class="font-weight-medium">{{.}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{/summary}}
+                  </div>
+                </div>
+                <button class="prev-btn">&#10094;</button>
+                <button class="next-btn">&#10095;</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-6 grid-margin transparent">
               <div class="row">
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
-                    <div class="card-body">
-                      <p class="font-weight-medium mb-4">오늘의 PER</p>
-                      <p class="font-weight-xlarge mb-2">{{per}}</p>
-                      <!-- <p>10.00% (30 days)</p> -->
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <p class="font-weight-medium mb-4">오늘의 PBR</p>
-                      <p class="font-weight-xlarge mb-2">{{pbr}}</p>
-                      <!-- <p>22.00% (30 days)</p> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="font-weight-medium mb-4">오늘의 기업가치</p>
-                      <p class="font-weight-xlarge mb-2">$ {{enterprise_val}}</p>
-                      <p class="font-weight-medium mb-2">T:조 / B:십 억</p>
-                      <!-- <p>2.00% (30 days)</p> -->
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 stretch-card transparent">
+                <div class="col-md-4 mb-4 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 시가총액</p>
@@ -262,33 +257,66 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-              <div class="card card-gemini1">
-                <div class="card-body">
-                  <p class="font-weight-large">오늘의 {{ticker}} 뉴스 요약</p>
-                  <div class="card">
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-tale">
                     <div class="card-body">
-                      <p class="font-weight-medium">{{news_summary}}<br><br></p>
-                      <p class="font-weight-large" id="sentiment-text">{{news_sentiment}}</p>
-                      <script>
-                        const sentimentText = document.getElementById('sentiment-text');
-                        const newsSentiment = document.getElementById('sentiment-text').innerText; // Replace with your actual sentiment data
-                        console.log(newsSentiment);
-                        if (newsSentiment === "positive") {
-                          sentimentText.innerHTML = "Looks <span style='color: green;'>" + newsSentiment + "</span> today!<br><br>Consider getting some!";
-                        } else {
-                          sentimentText.innerHTML = "Looks <span style='color: red;'>" + newsSentiment + "</span> today..<br><br>Better stay calm!";
-                        }
-                      </script>
+                      <p class="font-weight-medium mb-4">오늘의 PER</p>
+                      <p class="font-weight-xlarge mb-2">{{per}}</p>
+                      <!-- <p>10.00% (30 days)</p> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-dark-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 PEG</p>
+                      <p class="font-weight-xlarge mb-2">{{peg}}</p>
+                      <!-- <p>22.00% (30 days)</p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-light-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 PSR</p>
+                      <p class="font-weight-xlarge mb-2">{{psr}}</p>
+                      <!-- <p>2.00% (30 days)</p> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-dark-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 PBR</p>
+                      <p class="font-weight-xlarge mb-2">{{pbr}}</p>
+                      <!-- <p>22.00% (30 days)</p> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-light-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 EV/EBITDA</p>
+                      <p class="font-weight-xlarge mb-2">{{ev_ebitda}}</p>
+                      <!-- <p>2.00% (30 days)</p> -->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <script src="https://code.highcharts.com/stock/highstock.js"></script>
+              <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+              <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+              <script src="https://code.highcharts.com/stock/modules/heikinashi.js"></script>
+              <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script>
+              <div id="container"></div>
+              <script src="/js/industry.js"></script>
+            </div>
+          </div>
+          <!-- <div class="row">
             {{#edgar}}
             <div class="col-md-6 grid-margin">
               <div id="edgarReports" class="carousel slide detailed-report-carousel position-static pt-2" data-ride="carousel">
@@ -329,17 +357,19 @@
               </div>
             </div>
             {{/edgar}}
-          </div>
+          </div> -->
 
-
-            <script src="https://code.highcharts.com/stock/highstock.js"></script>
+          <div class="row">
+            <!-- <script src="https://code.highcharts.com/stock/highstock.js"></script>
             <script src="https://code.highcharts.com/stock/modules/data.js"></script>
             <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
             <script src="https://code.highcharts.com/stock/modules/heikinashi.js"></script>
-            <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script>
+            <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script> -->
             
             <div id="bollinger" style="height: 700px; min-width: 310px" class="col-md-12 grid-margin"></div>
             <script src="/js/bollinger.js"></script>
+          </div>
+            
 
 
           <div class="row">
@@ -408,6 +438,7 @@
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->
+  <script src="/js/news_summary.js"></script>
   <script src="/js/off-canvas.js"></script>
   <script src="/js/hoverable-collapse.js"></script>
   <script src="/js/template.js"></script>

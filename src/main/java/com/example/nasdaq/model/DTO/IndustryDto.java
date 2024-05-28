@@ -11,16 +11,18 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Nasdaq100Dto {
-    private String ticker;
-    private String name;
-    private String established;
-
-    private String CEO;
-
-    private String products;
-
-    private String milestones;
-
+public class IndustryDto {
     private String industry;
+
+    private String dailydate;
+
+    private double avgPER;
+
+    private double avgPEG;
+
+    private double avgPSR;
+
+    private double avgPBR;
+
+    private double avgEV_EBITDA;
 }
