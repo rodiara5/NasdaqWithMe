@@ -1,7 +1,6 @@
 // Highcharts.getJSON('https://api.coingecko.com/api/v3/coins/ethereum/ohlc?vs_currency=usd&days=365', function (heikin) {
 
 const ticker = document.getElementById('ticker').textContent;
-console.log(ticker)
 fetch(`/api/v1/nasdaq/bollinger?ticker=${ticker}`)
     .then(response => response.json())
     .then(data => {
@@ -13,7 +12,6 @@ fetch(`/api/v1/nasdaq/bollinger?ticker=${ticker}`)
             item.lowPrice,
             item.closePrice
         ]);
-        console.log(processedData[0]);
         Highcharts.stockChart('bollinger', {
             chart: {
                 backgroundColor: "#FFFFFF",

@@ -58,13 +58,12 @@
                             .then(data => {
                                 const resultsContainer = document.getElementById('search-results');
                                 resultsContainer.innerHTML = '';
-                                const recent_date = data.recent_date;
                                 data.tickers.forEach(ticker => {
                                     const div = document.createElement('div');
                                     div.classList.add('search-item');
                                     div.textContent = ticker;
                                     div.addEventListener('click', () => {
-                                        window.location.href = `/v1/nasdaq/details?ticker=${ticker}&dailydate=${recent_date}`;
+                                        window.location.href = `/v1/nasdaq/details?ticker=${ticker}`;
                                     });
                                     resultsContainer.appendChild(div);
                                 });
@@ -316,67 +315,41 @@
               <script src="/js/industry.js"></script>
             </div>
           </div>
-          <!-- <div class="row">
-            {{#edgar}}
-            <div class="col-md-6 grid-margin">
-              <div id="edgarReports" class="carousel slide detailed-report-carousel position-static pt-2" data-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <div class="card card-gemini2">
-                      <div class="card-body">
-                        <p class="font-weight-large">{{ticker}} 연간 리포트(10-K) 요약</p>
-                        <div class="card">
-                          <div class="card-body">
-                        <p class="font-weight-medium">{{summary_10k}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div class="card card-gemini2">
-                      <div class="card-body">
-                        <p class="font-weight-large">{{ticker}} 분기별 리포트(10-Q) 요약</p>
-                        <div class="card">
-                          <div class="card-body">
-                        <p class="font-weight-medium">{{summary_10q}}</p>
-                          </div>
-                        </div>
-                      </div> 
-                    </div>
-                  </div>
-                </div>
-                <a class="carousel-control-prev" href="#edgarReports" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#edgarReports" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
+          
+            <button id="openModalBtn">볼린저밴드 해석하는 법</button>
+            <div id="bollingerModal" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                  <h2>현재 주가 위치 분석</h2>
+                    <p>현재 주가가 이동평균선 근처에 위치해 있다면, 이는 시장이 비교적 안정적인 상태임을 의미합니다.
+                      주가가 상단 밴드에 가까워질 경우, 이는 시장이 과매수 상태에 접근하고 있음을 나타낼 수 있으며, 주가가 하락할 가능성이 높아질 수 있습니다.
+                      주가가 하단 밴드에 가까워질 경우, 이는 시장이 과매도 상태에 접근하고 있음을 나타낼 수 있으며, 주가가 상승할 가능성이 높아질 수 있습니다.
+                    </p>
+                  <h2>밴드 수축 및 확장</h2>
+                    <p>밴드가 수축하면 시장의 변동성이 낮아졌음을 나타내며, 이는 곧 큰 변동이 발생할 가능성을 시사합니다.
+                      밴드가 확장하면 시장의 변동성이 높아졌음을 나타내며, 이는 현재 트렌드가 지속될 가능성을 시사합니다.
+                    </p>
+                  <h2>트레이딩 전략</h2>
+                    <p>
+                      밴드 터치 전략: 주가가 상단 밴드를 터치하면 매도, 하단 밴드를 터치하면 매수하는 전략을 고려할 수 있습니다.
+                      밴드 수축 후 돌파 전략: 밴드가 수축된 후 주가가 상단 밴드를 돌파하면 매수, 하단 밴드를 돌파하면 매도하는 전략을 사용할 수 있습니다.
+                    </p>
               </div>
             </div>
-            {{/edgar}}
-          </div> -->
+            <script src="/js/modal.js"></script>
+        
 
           <div class="row">
-            <!-- <script src="https://code.highcharts.com/stock/highstock.js"></script>
-            <script src="https://code.highcharts.com/stock/modules/data.js"></script>
-            <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-            <script src="https://code.highcharts.com/stock/modules/heikinashi.js"></script>
-            <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script> -->
-            
             <div id="bollinger" style="height: 700px; min-width: 310px" class="col-md-12 grid-margin"></div>
             <script src="/js/bollinger.js"></script>
           </div>
             
-
-
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <p class="card-title">워드 클라우드</p>
+                  
                   <!-- <div class="row">
                     <div class="col-12">
                       <div class="table-responsive">
