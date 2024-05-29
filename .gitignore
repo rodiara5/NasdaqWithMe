@@ -35,3 +35,11 @@ out/
 
 ### VS Code ###
 .vscode/
+### 환경변수 (보안 중요: API, KEY) ###
+### git push를 하면 파일은 업로드 하지 않음
+### 하지만 커밋 내용이 기록에 남아있음 (기록도 지워야 안전)
+.env
+###
+config.py
+__pycache__
+.gitignore
