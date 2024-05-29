@@ -31,6 +31,10 @@ public class StockDataServiceImpl implements StockDataService{
             dto.setHighPrice(entity.getHighPrice());
             dto.setLowPrice(entity.getLowPrice());
             dto.setClosePrice(entity.getClosePrice());
+            dto.setMa20(entity.getMa20());
+            dto.setStd(entity.getStd());
+            dto.setOpenPrice(entity.getOpenPrice());
+            dto.setClosePrice(entity.getClosePrice());
 
             dtos.add(dto);
         }
@@ -51,6 +55,10 @@ public class StockDataServiceImpl implements StockDataService{
             dto.setOpenPrice(entity.getOpenPrice());
             dto.setHighPrice(entity.getHighPrice());
             dto.setLowPrice(entity.getLowPrice());
+            dto.setClosePrice(entity.getClosePrice());
+            dto.setMa20(entity.getMa20());
+            dto.setStd(entity.getStd());
+            dto.setOpenPrice(entity.getOpenPrice());
             dto.setClosePrice(entity.getClosePrice());
 
             dtos.add(dto);

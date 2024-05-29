@@ -1,16 +1,17 @@
 package com.example.nasdaq.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.example.nasdaq.model.DTO.DailyUpdateDto;
 import com.example.nasdaq.model.DTO.PredictpriceDto;
@@ -18,9 +19,6 @@ import com.example.nasdaq.service.DailyUpdateService;
 import com.example.nasdaq.service.PredictpriceService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RequestMapping("/v1/nasdaq")
@@ -85,6 +83,10 @@ public class mainController {
         return "redirect:" + url;
     }
     
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
 
 
 }

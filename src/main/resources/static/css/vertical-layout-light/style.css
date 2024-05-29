@@ -9045,7 +9045,7 @@ h6, .h6 {
 
 .display-1 {
   font-size: 6rem;
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1.2;
 }
 
@@ -30640,6 +30640,8 @@ div.tagsinput span.tag a {
   }
 }
 
+
+/* 검색창 */
 #search-container {
   position: relative;
 }
@@ -30663,6 +30665,9 @@ div.tagsinput span.tag a {
   background-color: #f0f0f0;
 }
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
+
+
+/* 슬라이더 */
 
 .detailed-report-carousel {
   position: relative;
@@ -30702,4 +30707,157 @@ div.tagsinput span.tag a {
 
 .next-btn {
   right: 10px;
+}
+
+
+/* 모달창 */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.small-image {
+  width: 50px;
+  height: auto;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+.new{
+  font-size:12px;
+}
+
+.inputs{
+  position: relative;
+}
+
+.inputs i{
+
+  position: absolute;
+top: 14px;
+left: 4px;
+color: #b8b9bc;
+}
+
+.star{
+
+height: 40px;
+width: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+background: #eee;
+margin-right: 10px;
+border-radius: 5px;
+
+}
+
+.time-text{
+
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.dots{
+
+height: 7px;
+width: 7px;
+background-color: #eee;
+display: flex;
+border-radius: 50%;
+margin-left:7px;
+margin-right: 7px;
+}
+
+.yellow{
+
+color: #ffab2e;
+}
+
+.content-text-1{
+
+height: 40px;
+width: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+background-color: #ffe7cc;
+color: #ffa03a;
+font-weight: 700;
+
+}
+
+
+.blue{
+
+color: #6ecce6;
+}
+
+
+.content-text-2{
+
+height: 40px;
+width: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+background-color: #e2f5fa;
+color: #6ecce6;
+font-weight: 700;
+
+}
+
+
+.dark-blue{
+
+color: #572ce8;
+}
+
+
+.content-text-3{
+
+height: 40px;
+width: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+background-color:#572ce86b;
+color: #572ce8;
+font-weight: 700;
+
 }

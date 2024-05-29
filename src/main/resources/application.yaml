@@ -20,7 +20,7 @@ cloud:
             auto: false
         credentials:
             access-key: AKIA2UC3EZ72I3S4NIGI
-            secret-key: # secret-key 입력 
+            secret-key: 
 
 spring:
     output:

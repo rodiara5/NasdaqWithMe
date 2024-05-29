@@ -25,4 +25,8 @@ public class StockDataEntity {
     private double highPrice;
     private double lowPrice;
     private double closePrice;
+    private double ma20;
+    private double std;
+    private double upper;
+    private double lower;
 }
