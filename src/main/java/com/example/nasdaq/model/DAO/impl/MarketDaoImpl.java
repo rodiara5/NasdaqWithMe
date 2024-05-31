@@ -38,7 +38,6 @@ public class MarketDaoImpl implements MarketDao{
 
     @Override
     public MarketEntity findByMarketCurrencyAndMarketName(String marketName) {
-        // TODO Auto-generated method stub
         return marketRepository.findByMarketCurrencyAndMarketName(marketName);
     }
 

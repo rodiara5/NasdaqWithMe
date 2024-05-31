@@ -20,7 +20,6 @@ public class AuthUserDto implements UserDetails {
     // 권한(들)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new GrantedAuthority() {
             
@@ -35,40 +34,34 @@ public class AuthUserDto implements UserDetails {
 
     @Override
     public String getPassword() {
-        // TODO Auto-generated method stub
         return userDto.getUserPw();
     }
 
     @Override
     public String getUsername() {
-        // TODO Auto-generated method stub
         return userDto.getUserId();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
         // 계정 만료 유무 확인 
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
         // 계정 잠긴 유무 확인
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
         // 계정 비번 오래 사용했는지 유무 확인 
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        // TODO Auto-generated method stub
         // 활성화된 계정인지 유무 확인  
         return true;
     }

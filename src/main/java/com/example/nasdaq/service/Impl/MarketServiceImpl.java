@@ -29,7 +29,6 @@ public class MarketServiceImpl implements MarketService {
 
     @Override
     public MarketDto getByMarketInfo(String dt, String marketName) {
-        // TODO Auto-generated method stub
         MarketEntity entity = marketDao.getByMarketInfo(dt, marketName);
         MarketDto dto = new MarketDto();
 
@@ -51,7 +50,6 @@ public class MarketServiceImpl implements MarketService {
 
     @Override
     public List<MarketDto> getAllMarketInfo() {
-        // TODO Auto-generated method stub
         List<MarketEntity> entities = marketDao.getAllMarketInfo();
         List<MarketDto> dtos = new ArrayList<>();
 

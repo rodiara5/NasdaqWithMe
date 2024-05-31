@@ -29,13 +29,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteUser(String userId) {
-        // TODO Auto-generated method stub
         userDao.deleteUser(userId);
     }
 
     @Override
     public List<UserDto> getAllUser() {
-        // TODO Auto-generated method stub
 
         List<UserEntity> userList = userDao.getAllUser();
         List<UserDto> dtoList = new ArrayList<>();
@@ -54,7 +52,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto getUserByName(String userId) {
-        // TODO Auto-generated method stub
         log.info("[UserServiceImpl][getUserByName] userId >>> " + userId);
         UserEntity entity = userDao.getUserByName(userId);
         UserDto dto = new UserDto();
@@ -73,7 +70,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void insertUser(UserDto dto) throws Exception{
-        // TODO Auto-generated method stub
         UserEntity entity = new UserEntity();
         entity.setUserId(dto.getUserId());
         entity.setUserName(dto.getUserName());
@@ -85,7 +81,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateUser(UserDto dto) {
-        // TODO Auto-generated method stub
         UserEntity entity = userDao.getUserByName(dto.getUserName());
         entity.setUserId(dto.getUserId());
         entity.setUserName(dto.getUserName());
@@ -99,7 +94,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateIsLoginByName(String userId, Boolean isLogin) {
-        // TODO Auto-generated method stub
         UserEntity entity = userDao.getUserByName(userId);
         entity.setIsLogin(isLogin);
         userDao.updateUser(entity);
@@ -108,7 +102,6 @@ public class UserServiceImpl implements UserService{
     // 회원가입
     @Override
     public void joinUser(UserDto dto, HttpServletResponse response) throws Exception{
-        // TODO Auto-generated method stub
         // 권한 적용
         dto.setUserRole("USER");
         if(dto.getUserId().equals("admin")) {
@@ -150,7 +143,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void checkDuplicate(String userId, HttpServletResponse response) throws IOException{
-        // TODO Auto-generated method stub
         UserEntity userEntity = userDao.getUserByName(userId);
         if(userEntity != null){
             ScriptUtils.alertAndBackPage(response, "이미 존재하는 아이디입니다.");

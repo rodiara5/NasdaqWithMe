@@ -19,7 +19,6 @@ public class StockDataServiceImpl implements StockDataService{
 
     @Override
     public List<StockDataDto> getAllStockData() {
-        // TODO Auto-generated method stub
         List<StockDataEntity> entities = stockDataDao.getAllStockData();
         List<StockDataDto> dtos = new ArrayList<>();
 
@@ -44,7 +43,6 @@ public class StockDataServiceImpl implements StockDataService{
 
     @Override
     public List<StockDataDto> getOneStockData(String ticker) {
-        // TODO Auto-generated method stub
         List<StockDataEntity> entities = stockDataDao.getOneStockData(ticker);
         List<StockDataDto> dtos = new ArrayList<>();
 

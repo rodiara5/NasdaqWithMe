@@ -30,7 +30,6 @@ public class AuthProvider implements AuthenticationProvider {
     // ID, PW 검증 확인!!
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        // TODO Auto-generated method stub
         log.info("[AuthProvider][authenticate] Start");
 
         String name= authentication.getName();
@@ -54,7 +53,6 @@ public class AuthProvider implements AuthenticationProvider {
     // supports()의 값이 true이면, authenticate()를 실행하여 인증(검증) 진행
     @Override
     public boolean supports(Class<?> authentication) {
-        // TODO Auto-generated method stub
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 

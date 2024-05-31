@@ -20,7 +20,6 @@ public class IndustryServiceImpl implements IndustryService{
 
     @Override
     public IndustryDto getIndustryAvg(String industry) {
-        // TODO Auto-generated method stub
         String recentDate = dailyUpdatesDao.getMostRecentDate();
 
         IndustryEntity entity = industryDao.getIndustryAvg(industry, recentDate);

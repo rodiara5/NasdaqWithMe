@@ -17,33 +17,28 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void deleteUser(String userId) {
-        // TODO Auto-generated method stub
         userRepository.deleteById(userId);
     }
 
     @Override
     public List<UserEntity> getAllUser() {
-        // TODO Auto-generated method stub
         
         return userRepository.findAll();
     }
 
     @Override
     public UserEntity getUserByName(String userId) {
-        // TODO Auto-generated method stub
         
         return userRepository.getUserByName(userId);
     }
 
     @Override
     public void insertUser(UserEntity entity)throws Exception {
-        // TODO Auto-generated method stub
         userRepository.save(entity);
     }
 
     @Override
     public void updateUser(UserEntity entity) {
-        // TODO Auto-generated method stub
         userRepository.save(entity);
     }
     

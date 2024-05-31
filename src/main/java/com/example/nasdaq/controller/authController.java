@@ -2,16 +2,14 @@ package com.example.nasdaq.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.ScriptUtils;
 import com.example.nasdaq.model.DTO.UserDto;
-import com.example.nasdaq.model.Repository.UserRepository;
 import com.example.nasdaq.service.UserService;
-import org.springframework.ui.Model;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

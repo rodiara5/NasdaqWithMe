@@ -17,14 +17,12 @@ public class StockDataDaoImpl implements StockDataDao{
 
     @Override
     public List<StockDataEntity> getAllStockData() {
-        // TODO Auto-generated method stub
         List<StockDataEntity> entities = stockDataRepository.findAll();
         return entities;
     }
 
     @Override
     public List<StockDataEntity> getOneStockData(String ticker) {
-        // TODO Auto-generated method stub
         List<StockDataEntity> entities = stockDataRepository.findStockDataByDateAndTicker(ticker);
         return entities;
     }

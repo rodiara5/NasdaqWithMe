@@ -19,7 +19,6 @@ public class EdgarReportsServiceImpl implements EdgarReportsService{
 
     @Override
     public List<EdgarReportsDto> getAllEdgarInfo() {
-        // TODO Auto-generated method stub
         List<EdgarReportsEntity> entities = edgarReportsDao.getAllEdgarInfo();
         List<EdgarReportsDto> dtos = new ArrayList<>();
         for(EdgarReportsEntity entity : entities){
@@ -37,7 +36,6 @@ public class EdgarReportsServiceImpl implements EdgarReportsService{
 
     @Override
     public EdgarReportsDto getOneEdgarInfo(String ticker) {
-        // TODO Auto-generated method stub
         EdgarReportsEntity entity = edgarReportsDao.getOneEdgarInfo(ticker);
         EdgarReportsDto dto = new EdgarReportsDto();
 

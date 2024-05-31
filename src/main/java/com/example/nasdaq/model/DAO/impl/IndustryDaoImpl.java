@@ -15,7 +15,6 @@ public class IndustryDaoImpl implements IndustryDao{
 
     @Override
     public IndustryEntity getIndustryAvg(String industry, String dailydate) {
-        // TODO Auto-generated method stub
         IndustryEntity entity = industryRepository.getIndustryAvg(industry, dailydate);
         return entity;
     }

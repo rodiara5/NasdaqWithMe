@@ -17,13 +17,11 @@ public class Nasdaq100DaoImpl implements Nasdaq100Dao{
 
     @Override
     public List<Nasdaq100Entity> getAllNasdaq100() {
-        // TODO Auto-generated method stub
         return nasdaq100Repository.findAll();
     }
 
     @Override
     public Nasdaq100Entity getByTicker(String ticker) {
-        // TODO Auto-generated method stub
         return nasdaq100Repository.findByTicker(ticker);
     }
 

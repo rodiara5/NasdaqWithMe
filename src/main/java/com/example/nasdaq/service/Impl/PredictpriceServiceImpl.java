@@ -18,7 +18,6 @@ public class PredictpriceServiceImpl implements PredictpriceService{
 
     @Override
     public List<PredictpriceDto> getTop3predict_price() {
-        // TODO Auto-generated method stub
 
         List<PredictpriceEntity> entities = predictpricedao.findTop3predict_price();
         List<PredictpriceDto> dtos = new ArrayList<>();
@@ -38,7 +37,6 @@ public class PredictpriceServiceImpl implements PredictpriceService{
 
     @Override
     public List<PredictpriceDto> getButtom3predict_price() {
-        // TODO Auto-generated method stub
 
         List<PredictpriceEntity> entities = predictpricedao.findButtom3predict_price();
         List<PredictpriceDto> dtos = new ArrayList<>();

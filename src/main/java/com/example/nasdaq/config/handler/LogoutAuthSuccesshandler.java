@@ -25,7 +25,6 @@ public class LogoutAuthSuccesshandler implements LogoutSuccessHandler {
   @Override
   public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
       throws IOException, ServletException {
-    // TODO Auto-generated method stub
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     userService.updateIsLoginByName(userDetails.getUsername(), false);
 

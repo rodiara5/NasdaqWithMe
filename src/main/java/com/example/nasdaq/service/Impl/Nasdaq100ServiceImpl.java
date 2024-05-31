@@ -19,7 +19,6 @@ public class Nasdaq100ServiceImpl implements Nasdaq100Service{
 
     @Override
     public Nasdaq100Dto findByTicker(String ticker) {
-        // TODO Auto-generated method stub
         Nasdaq100Entity entity = nasdaq100Dao.getByTicker(ticker);
         Nasdaq100Dto dto = new Nasdaq100Dto();
         dto.setTicker(entity.getTicker());
@@ -34,7 +33,6 @@ public class Nasdaq100ServiceImpl implements Nasdaq100Service{
 
     @Override
     public List<Nasdaq100Dto> getAllNasdaq100() {
-        // TODO Auto-generated method stub
         List<Nasdaq100Entity> entities = nasdaq100Dao.getAllNasdaq100();
         List<Nasdaq100Dto> dtos = new ArrayList<>();
         for (Nasdaq100Entity entity : entities) {

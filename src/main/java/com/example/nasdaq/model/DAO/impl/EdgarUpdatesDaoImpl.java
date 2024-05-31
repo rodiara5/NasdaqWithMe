@@ -17,14 +17,12 @@ public class EdgarUpdatesDaoImpl implements EdgarReportsDao{
 
     @Override
     public List<EdgarReportsEntity> getAllEdgarInfo() {
-        // TODO Auto-generated method stub
         List<EdgarReportsEntity> entities = edgarReportsRepository.findAll();
         return entities;
     }
 
     @Override
     public EdgarReportsEntity getOneEdgarInfo(String ticker) {
-        // TODO Auto-generated method stub
         EdgarReportsEntity entity = edgarReportsRepository.findByEdgarReportsPKTicker(ticker);
         return entity;
     }

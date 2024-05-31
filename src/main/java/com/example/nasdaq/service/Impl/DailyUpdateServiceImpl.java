@@ -19,7 +19,6 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
 
     @Override
     public List<DailyUpdateDto> getAllDailyInfo() {
-        // TODO Auto-generated method stub
         List<DailyUpdateEntity> entities = dailyUpdatesDao.getAllDailyInfo();
         List<DailyUpdateDto> dtos = new ArrayList<>();
 
@@ -45,7 +44,6 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
 
     @Override
     public List<DailyUpdateDto> getOneDailyInfo(String ticker, String dailydate) {
-        // TODO Auto-generated method stub
 
         List<DailyUpdateEntity> entities = dailyUpdatesDao.getOneDailyInfo(ticker, dailydate);
         List<DailyUpdateDto> dtos = new ArrayList<>();
@@ -73,14 +71,12 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
 
     @Override
     public String getMostRecentDate() {
-        // TODO Auto-generated method stub
         String recent_date = dailyUpdatesDao.getMostRecentDate();
         return recent_date;
     }
 
     @Override
     public List<String> getTickersContaining(String ticker) {
-        // TODO Auto-generated method stub
         List<DailyUpdateEntity> entities = dailyUpdatesDao.getTickersContaining(ticker);
         List<String> tickers = new ArrayList<>();
         for(DailyUpdateEntity entity : entities) {

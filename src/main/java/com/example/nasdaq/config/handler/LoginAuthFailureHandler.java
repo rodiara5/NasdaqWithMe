@@ -21,7 +21,6 @@ public class LoginAuthFailureHandler extends SimpleUrlAuthenticationFailureHandl
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
       AuthenticationException exception) throws IOException, ServletException {
-    // TODO Auto-generated method stub
     
     log.error("[LoginAuthFailureHandler][onAuthenticationFailure] Start");
     exception.printStackTrace();

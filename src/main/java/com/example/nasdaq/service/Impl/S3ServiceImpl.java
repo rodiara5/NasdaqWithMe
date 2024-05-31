@@ -18,7 +18,6 @@ public class S3ServiceImpl implements S3Service{
 
     @Override
     public String getFileFromS3(String bucket_name, String file_name) {
-        // TODO Auto-generated method stub
         StringBuilder contentBuilder = new StringBuilder();
         try {
             InputStream inputStream = s3Client.getObject(new GetObjectRequest(bucket_name, file_name)).getObjectContent();

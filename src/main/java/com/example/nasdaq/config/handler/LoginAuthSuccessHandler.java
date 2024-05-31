@@ -32,7 +32,6 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
-    // TODO Auto-generated method stub
       log.info("[LoginAuthSuccessHandler][onAuthenticationSuccess] Start");
     // 로그인 성공시, 로그인 유무 저장 
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
