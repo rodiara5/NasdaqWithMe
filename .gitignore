@@ -42,4 +42,5 @@ out/
 ###
 config.py
 __pycache__
+application.yaml
 .gitignore
