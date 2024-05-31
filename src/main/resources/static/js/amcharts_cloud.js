@@ -7,7 +7,7 @@ fetch("http://127.0.0.1:5000/tospring", {
   .then((response) => response.json())
   .then((data) => {
     am4core.useTheme(am4themes_animated);
-    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+    var chart = am4core.create("chartcloud", am4plugins_wordCloud.WordCloud);
     chart.fontFamily = "Courier New";
     var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
     series.randomness = 0.1;
