@@ -43,3 +43,4 @@ out/
 config.py
 __pycache__
 application.*
+.gitignore
