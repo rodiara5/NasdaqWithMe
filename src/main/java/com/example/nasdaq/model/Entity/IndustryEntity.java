@@ -21,9 +21,9 @@ public class IndustryEntity {
     @EmbeddedId
     private IndustryPK industryPK;
 
-    private double avgPER;
+    private double avgMarketCap;
 
-    private double avgPEG;
+    private double avgPER;
 
     private double avgPSR;
 

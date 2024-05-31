@@ -37,7 +37,7 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     // 로그인 성공시, 로그인 유무 저장 
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     userService.updateIsLoginByName(userDetails.getUsername(), true);
-    response.sendRedirect("v1/nasdaq/details?ticker=MSFT");
+    response.sendRedirect("v1/nasdaq/main");
     super.onAuthenticationSuccess(request, response, authentication);
   }
 

@@ -40,6 +40,12 @@ public class RestApiController {
         return response;
     }
 
+    @GetMapping("/industries")
+    public List<IndustryDto> industries() {
+        List<IndustryDto> dtos = industryService.getAllIndustry();
+        return dtos;
+    }
+
     @GetMapping("/industry")
     public IndustryDto industry(@RequestParam String industry) {
         IndustryDto dto = industryService.getIndustryAvg(industry);
@@ -53,4 +59,11 @@ public class RestApiController {
         DailyUpdateDto firstDto =  dtos.get(0);
         return firstDto;
     }
+
+    // @GetMapping("/test")
+    // public List<TopTickersDto> test(@RequestParam String industry){
+    //     List<TopTickersDto> tickers_names = dailyUpdateService.getTop5TickersByIndustry(industry);
+
+    //     return tickers_names;
+    // }
 }

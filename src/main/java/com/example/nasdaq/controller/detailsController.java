@@ -42,6 +42,7 @@ public class detailsController {
 
     private static final String BUCKET_NAME = "playdata-team1-bucket";
 
+
     @GetMapping("/details")
     public String detailsPage(Model model, @RequestParam String ticker){
         String recentDate = dailyUpdateService.getMostRecentDate();
@@ -68,13 +69,14 @@ public class detailsController {
 
         model.addAttribute("Industry", industryDto.getIndustry());
         model.addAttribute("avgPER", roundToTwoDecimalPlaces(industryDto.getAvgPER()));
-        model.addAttribute("avgPEG", roundToTwoDecimalPlaces(industryDto.getAvgPEG()));
         model.addAttribute("avgPSR", roundToTwoDecimalPlaces(industryDto.getAvgPSR()));
         model.addAttribute("avgPBR", roundToTwoDecimalPlaces(industryDto.getAvgPBR()));
         model.addAttribute("avgEV_EBITDA", roundToTwoDecimalPlaces(industryDto.getAvgEV_EBITDA()));
 
         model.addAttribute("nasdaq100", nasdaq100Service.findByTicker(ticker));
         model.addAttribute("company", firstDto);
+        // 숫자를 포맷팅하여 세 자리마다 쉼표 추가
+        model.addAttribute("MarketCap", formatNumber(firstDto.getMarket_cap()));
         // model.addAttribute("edgar", edgarReportsService.getOneEdgarInfo(ticker));
 
         return "details";
@@ -92,5 +94,26 @@ public class detailsController {
         // 소수 둘째 자리까지 확장하여 반올림
         double roundedNum = Math.round(num * 100.0) / 100.0;
         return roundedNum;
+    }
+
+    public static String formatNumber(long number) {
+        double result;
+        String unit;
+
+        if (number >= 1_000_000_000_000L) {
+            result = number / 1_000_000_000_000.0;
+            unit = "조";
+        } else if (number >= 1_000_000_000L) {
+            result = number / 1_000_000_000.0;
+            unit = "억";
+        } else if (number >= 1_000_000L) {
+            result = number / 1_000_000.0;
+            unit = "백만";
+        } else {
+            result = number;
+            unit = "";
+        }
+
+        return String.format("%.1f%s", result, unit);
     }
 }

@@ -24,13 +24,13 @@
   <link rel="shortcut icon" href="/images/favicon.png" />
 
 </head>
-<body>
+<body class="sidebar-icon-only">
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-start">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -167,13 +167,17 @@
           <div class="row">
             <div class="col-md-12 grid-margin">
               <div class="row">
-                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                <div class="col-12 col-xl-4 mb-4 mb-xl-0">
                   <h2 class="font-weight-bold">{{name}}</h2>
                   <h5 class="font-weight-normal mb-0" id="ticker"><span class="text-primary">{{ticker}}</span></h5>
                   <h5 class="font-weight-normal mb-0" id="industry"><span class="text-primary">{{Industry}}</span></h5>
                   <h6 class="font-weight-normal mb-0"><span class="text-primary" id="today-date">{{dailydate}}</span></h6>
                 </div>
-                <div class="col-12 col-xl-4">
+                <div class="col-12 col-xl-3 mb-4 mb-xl-0">
+                  <button class="btn btn-primary font-weight-bold d-flex align-items-center">오늘의 {{ticker}} 리포트 생성</button>
+                  <p class="mt-4">버튼 클릭 시 오늘 {{ticker}}의 재무지표, 뉴스기사, 그리고 공시자료를 토대로 분석 리포트를 작성해드립니다</p>
+                </div>
+                <div class="col-12 col-xl-5">
                  <div class="justify-content-end d-flex">
                   <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
                     <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -246,31 +250,19 @@
           <div class="row">
             <div class="col-md-6 grid-margin transparent">
               <div class="row">
-                <div class="col-md-4 mb-4 stretch-card transparent">
+                <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 시가총액</p>
-                      <p class="font-weight-xlarge mb-2">$ {{market_cap}}</p>
-                      <p class="font-weight-medium mb-2">T:조 / B:십 억</p>
-                      <!-- <p>0.22% (30 days)</p> -->
+                      <p class="font-weight-xlarge mb-2">$ {{MarketCap}}</p>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 mb-4 stretch-card transparent">
+                <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-tale">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 PER</p>
                       <p class="font-weight-xlarge mb-2">{{per}}</p>
-                      <!-- <p>10.00% (30 days)</p> -->
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <p class="font-weight-medium mb-4">오늘의 PEG</p>
-                      <p class="font-weight-xlarge mb-2">{{peg}}</p>
-                      <!-- <p>22.00% (30 days)</p> -->
                     </div>
                   </div>
                 </div>
@@ -281,7 +273,6 @@
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 PSR</p>
                       <p class="font-weight-xlarge mb-2">{{psr}}</p>
-                      <!-- <p>2.00% (30 days)</p> -->
                     </div>
                   </div>
                 </div>
@@ -290,7 +281,6 @@
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 PBR</p>
                       <p class="font-weight-xlarge mb-2">{{pbr}}</p>
-                      <!-- <p>22.00% (30 days)</p> -->
                     </div>
                   </div>
                 </div>
@@ -299,7 +289,6 @@
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 EV/EBITDA</p>
                       <p class="font-weight-xlarge mb-2">{{ev_ebitda}}</p>
-                      <!-- <p>2.00% (30 days)</p> -->
                     </div>
                   </div>
                 </div>

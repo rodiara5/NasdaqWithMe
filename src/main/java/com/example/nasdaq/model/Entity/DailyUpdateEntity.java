@@ -39,13 +39,9 @@ public class DailyUpdateEntity {
 
     private String news_summary;
 
-    private String market_cap;
-
-    private String enterprise_val;
+    private Long market_cap;
 
     private double per;
-
-    private double peg;
 
     private double psr;
 

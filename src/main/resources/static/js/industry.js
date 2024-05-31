@@ -9,7 +9,6 @@ Promise.all([
     // ratioData와 industryData의 형식에 맞게 변환
     const processedRatioData = [
         ratioData.per,
-        ratioData.peg,
         ratioData.psr,
         ratioData.pbr,
         ratioData.ev_ebitda
@@ -17,7 +16,6 @@ Promise.all([
 
     const processedIndustryData = [
         industryData.avgPER,
-        industryData.avgPEG,
         industryData.avgPSR,
         industryData.avgPBR,
         industryData.avgEV_EBITDA
@@ -37,7 +35,7 @@ Promise.all([
             align: 'left'
         },
         xAxis: {
-            categories: ['PER', 'PEG', 'PSR', 'PBR', 'EV/EBITDA'],
+            categories: ['PER', 'PSR', 'PBR', 'EV/EBITDA'],
             crosshair: true,
             accessibility: {
                 description: 'Ratios'
