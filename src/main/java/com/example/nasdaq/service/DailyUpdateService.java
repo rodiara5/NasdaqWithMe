@@ -13,5 +13,5 @@ public interface DailyUpdateService {
 
     public List<String> getTickersContaining(String ticker);
 
-    public List<TopTickersInterface> getTop5TickersByIndustry(String industry, String dailydate);
+    public TopTickersInterface getBestTickersByIndustry(String industry, String dailydate);
 }

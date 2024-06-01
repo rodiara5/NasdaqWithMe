@@ -75,10 +75,11 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
     }
 
     @Override
-    public List<TopTickersInterface> getTop5TickersByIndustry(String industry, String dailydate) {
+    public TopTickersInterface getBestTickersByIndustry(String industry, String dailydate) {
         // TODO Auto-generated method stub
-        List<TopTickersInterface> values = dailyUpdateRepository.findTop5TickerByIndustry(industry, dailydate);
+        TopTickersInterface values = dailyUpdateRepository.findBestTickerByIndustry(industry, dailydate);
         return values;
+
         // String recentDate = dailyUpdatesDao.getMostRecentDate();
 
         // List<TopTickersEntity> entities = dailyUpdatesDao.getTop5TickersByIndustry(industry, recentDate);

@@ -23,7 +23,7 @@ public interface DailyUpdateRepository extends JpaRepository<DailyUpdateEntity, 
     public List<DailyUpdateEntity> findByTickerContainingIgnoreCase(String ticker);
 
     // 산업군별로 시가총액 top5 종목 리턴
-    @Query(value = "SELECT ticker, name FROM daily_update WHERE industry = :industry AND dailydate = :dailydate ORDER BY market_cap DESC LIMIT 5", nativeQuery = true)
-    public List<TopTickersInterface> findTop5TickerByIndustry(@Param(value = "industry") String industry, @Param(value = "dailydate") String dailydate);
+    @Query(value = "SELECT ticker, name FROM daily_update WHERE industry = :industry AND dailydate = :dailydate ORDER BY per DESC LIMIT 1", nativeQuery = true)
+    public TopTickersInterface findBestTickerByIndustry(@Param(value = "industry") String industry, @Param(value = "dailydate") String dailydate);
 
 }

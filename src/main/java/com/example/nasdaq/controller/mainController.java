@@ -37,28 +37,29 @@ public class mainController {
 
     String recentDate = dailyUpdateService.getMostRecentDate();
     List<IndustryDto> dtos = industryService.getAllIndustry();
-    Map<String, List<List<String>>> topFive = new HashMap<>();
+    Map<String, List<String>> topFive = new HashMap<>();
 
     int count = 1;
     for (IndustryDto dto : dtos) {
         String industry = dto.getIndustry();
         model.addAttribute(String.format("industry%d", count), industry);
-        
 
-        List<TopTickersInterface> tickers_names = dailyUpdateService.getTop5TickersByIndustry(industry, recentDate);
-        
-        List<List<String>> list = topFive.getOrDefault(industry, new ArrayList<>());
-        for (TopTickersInterface ticker_name : tickers_names) {
+        TopTickersInterface ticker_name = dailyUpdateService.getBestTickersByIndustry(industry, recentDate);
+        if (ticker_name != null) {
             List<String> tickerInfo = new ArrayList<>();
             String ticker = ticker_name.getTicker();
             String name = ticker_name.getName();
             tickerInfo.add(ticker);
             tickerInfo.add(name);
-            list.add(tickerInfo);
+            topFive.put(industry, tickerInfo);
+
+            model.addAttribute(String.format("ticker%d", count), topFive.get(industry).get(0));
+            model.addAttribute(String.format("name%d", count), topFive.get(industry).get(1));
+        } else {
+            model.addAttribute(String.format("ticker%d", count), "나스닥100에 해당 산업군의 종목이 없습니다.");
+            model.addAttribute(String.format("name%d", count), "");
         }
         
-        topFive.put(industry, list);
-        model.addAttribute(String.format("ticker%d", count), topFive.get(industry));
         count++;
     }
 
