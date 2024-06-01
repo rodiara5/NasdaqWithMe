@@ -65,12 +65,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 // "/user" 와 같은 url path로 접근할 경우... 
                 .requestMatchers("/user/**")
+                    .hasAnyAuthority("USER")
                     // 인증(로그인)만 접근 가능
-                    .authenticated()
-                // "/manager" 와 같은 url path로 접근할 경우...
-                .requestMatchers("/manager/**")
-                    // ADMIN, MANAGER이라는 권한을 갖은 사용자만 접근 가능 
-                    .hasAnyAuthority("MANAGER", "ADMIN")
+                    // .authenticated()
                 // "/admin" 와 같은 url path로 접근할 경우...
                 .requestMatchers("/admin/**")
                     // ADMIN이라는 권한을 갖은 사용자만 접근 가능 
@@ -81,11 +78,11 @@ public class SecurityConfig {
             // 인증(로그인)에 대한 설정 
             .formLogin(formLogin -> formLogin
                 // Controller에서 로그인 페이지 url path
-                .loginPage("/loginPage")
+                .loginPage("/v1/nasdaq/loginPage")
                 // 로그인 화면에서 form 테그의 action 주소(url path)
                 // 그러면, Spring Security가 로그인 검증을 진행함!!!
                 // Controller에서는 해당 "/login"을 만들 필요가 없음!! 
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/v1/nasdaq/login")
                 // 로그인 성공시 
                 .successHandler(loginAuthSuccessHandler)
                 // .defaultSuccessUrl("/user/index")
@@ -97,7 +94,7 @@ public class SecurityConfig {
             // 로그아웃에 대한 설정 
             .logout(logout -> logout
                 // 로그아웃 요청 url path 
-                .logoutUrl("/logout")
+                .logoutUrl("/v1/nasdaq/logout")
                 // 로그아웃 성공시
                 .logoutSuccessHandler(logoutAuthSuccesshandler)
                 .permitAll()

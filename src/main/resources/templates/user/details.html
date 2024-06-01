@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>종목 상세</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="/vendors/feather/feather.css">
+  <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+  
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="/js/select.dataTables.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="/images/favicon.png" />
+
+</head>
+<body class="sidebar-icon-only">
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="/user/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/user/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-start">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <ul class="navbar-nav mr-lg-2">
+          
+          <form id="search-form" action="/v1/nasdaq/search" method="GET">
+            <li class="nav-item nav-search d-none d-lg-block">
+              <div class="input-group" id="search-container">
+                <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                  <span class="input-group-text" id="search">
+                    <i class="icon-search"></i>
+                  </span>
+                </div>
+                <input type="text" name="ticker" class="form-control" id="ticker-search" placeholder="Search now" aria-label="search" aria-describedby="search">
+                <div id="search-results"></div>
+              </div>
+              <script>
+                document.getElementById('ticker-search').addEventListener('input', function() {
+                    const query = this.value;
+                    if (query.length > 0) { // 최소 1글자 이상 입력 시 요청
+                        fetch(`/api/v1/nasdaq/search?ticker=${query}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const resultsContainer = document.getElementById('search-results');
+                                resultsContainer.innerHTML = '';
+                                data.tickers.forEach(ticker => {
+                                    const div = document.createElement('div');
+                                    div.classList.add('search-item');
+                                    div.textContent = ticker;
+                                    div.addEventListener('click', () => {
+                                        window.location.href = `/user/v1/nasdaq/details?ticker=${ticker}`;
+                                    });
+                                    resultsContainer.appendChild(div);
+                                });
+                            })
+                            .catch(error => console.error('Error fetching tickers:', error));
+                    } else {
+                        document.getElementById('search-results').innerHTML = '';
+                    }
+                });
+            </script>
+            </li>
+          </form>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-settings d-none d-lg-flex">
+            <a class="nav-link" href="#">
+              <i class="icon-ellipsis"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="ti-settings"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close ti-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles default"></div>
+          </div>
+        </div>
+      </div>
+      <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+          </li>
+        </ul>
+        <h1>메뉴바 추후에 필요시 채워넣을 예정</h1>
+      </div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">UI Elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/pages/ui-features/typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/pages/documentation/documentation.html">
+              <i class="mdi mdi-calendar menu-icon"></i>
+              <span class="menu-title">Calendar</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/pages/documentation/documentation.html">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Market Indicator</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      {{#company}}
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin">
+              <div class="row">
+                <div class="col-12 col-xl-4 mb-4 mb-xl-0">
+                  <h2 class="font-weight-bold">{{name}}</h2>
+                  <h5 class="font-weight-normal mb-0" id="ticker"><span class="text-primary">{{ticker}}</span></h5>
+                  <h5 class="font-weight-normal mb-0" id="industry"><span class="text-primary">{{Industry}}</span></h5>
+                  <h6 class="font-weight-normal mb-0"><span class="text-primary" id="today-date">{{dailydate}}</span></h6>
+                </div>
+                <div class="col-12 col-xl-3 mb-4 mb-xl-0">
+                  <button class="btn btn-primary font-weight-bold d-flex align-items-center">관심종목 추가</button>
+                </div>
+                <div class="col-12 col-xl-5">
+                 <div class="justify-content-end d-flex">
+                  <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+                    <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                     <i class="mdi mdi-calendar"></i> 종목 리스트
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
+                      <div id="dropdown-items-container">
+                        <script>
+                          const companyData = {'MSFT': 'microsoft-corp', 'AAPL': 'apple-computer-inc', 'NVDA': 'nvidia-corp', 'GOOG': 'google-inc-c', 'GOOGL': 'google-inc', 'AMZN': 'amazon-com-inc', 'META': 'facebook-inc', 'AVGO': 'avago-technologies', 'TSLA': 'tesla-motors', 'ASML': 'asml-holdings', 'COST': 'costco-whsl-corp-new', 'PEP': 'pepsico', 'NFLX': 'netflix,-inc.', 'AZN': 'astrazeneca-plc-ads', 'AMD': 'adv-micro-device', 'LIN': 'linde-plc', 'ADBE': 'adobe-sys-inc', 'TMUS': 'metropcs-communications', 'CSCO': 'cisco-sys-inc', 'QCOM': 'qualcomm-inc', 'INTU': 'intuit', 'PDD': 'pinduoduo', 'AMAT': 'applied-matls-inc', 'TXN': 'texas-instru', 'CMCSA': 'comcast-corp-new', 'AMGN': 'amgen-inc', 'ISRG': 'intuitive-surgical-inc', 'INTC': 'intel-corp', 'HON': 'honeywell-intl', 'MU': 'micron-tech', 'BKNG': 'priceline.com-inc', 'LRCX': 'lam-research-corp', 'VRTX': 'vertex-pharm', 'ADP': 'auto-data-process', 'REGN': 'regeneron-phar.', 'ABNB': 'airbnb-inc', 'ADI': 'analog-devices', 'MDLZ': 'mondelez-international-inc', 'PANW': 'palo-alto-netwrk', 'KLAC': 'kla-tencor-corp', 'SBUX': 'starbucks-corp', 'GILD': 'gilead-sciences-inc', 'SNPS': 'synopsys-inc', 'CDNS': 'cadence-design-system-inc', 'MELI': 'mercadolibre', 'CRWD': 'crowdstrike-holdings-inc', 'PYPL': 'paypal-holdings-inc', 'MAR': 'marriott-intl', 'CTAS': 'cintas-corp', 'CSX': 'csx-corp', 'WDAY': 'workday-inc', 'NXPI': 'nxp-semiconductors', 'ORLY': 'oreilly-automotive', 'CEG': 'constellation-energy', 'PCAR': 'paccar-inc', 'MNST': 'monster-beverage', 'MRVL': 'marvell-technology-group-ltd', 'ROP': 'roper-industries', 'CPRT': 'copart-inc', 'DASH': 'doordash-inc', 'DXCM': 'dexcom', 'FTNT': 'fortinet', 'MCHP': 'microchip-technology-inc', 'AEP': 'american-electric', 'KDP': 'dr-pepper-snapple', 'ADSK': 'autodesk-inc', 'TEAM': 'atlassian-corp-plc', 'LULU': 'lululemon-athletica', 'KHC': 'kraft-foods-inc', 'PAYX': 'paychex-inc', 'ROST': 'ross-stores-inc', 'MRNA': 'moderna', 'DDOG': 'datadog-inc', 'TTD': 'trade-desk-inc', 'ODFL': 'old-dominion-freight-line-inc', 'FAST': 'fastenal-co', 'IDXX': 'idexx-laboratorie', 'EXC': 'exelon-corp', 'CHTR': 'charter-communications', 'CSGP': 'costar-group', 'GEHC': 'ge-healthcare-holding-llc', 'FANG': 'diamondback-energy-inc', 'EA': 'electronic-arts-inc', 'VRSK': 'verisk-analytics-inc', 'CCEP': 'coca-cola-ent', 'CTSH': 'cognizant-technology-solutio', 'BKR': 'baker-hughes', 'BIIB': 'biogen-idec-inc', 'XEL': 'xcel-energy', 'ON': 'on-semiconductor', 'CDW': 'cdw-corp', 'ANSS': 'ansys', 'MDB': 'mongodb', 'DLTR': 'dollar-tree-inc', 'ZS': 'zscaler-inc', 'GFS': 'globalfoundries', 'TTWO': 'take-two-interactive', 'ILMN': 'illumina,-inc.', 'WBD': 'discovery-holding-co', 'WBA': 'walgreen-co', 'SIRI': 'sirius-satellite-radio-inc'};
+                          for (const [stockCode, companyName] of Object.entries(companyData)) {
+                            const dropdownItem = document.createElement('a');
+                            dropdownItem.classList.add('dropdown-item');
+                            dropdownItem.href = `/user/v1/nasdaq/details?ticker=${stockCode}`;
+                            dropdownItem.textContent = `${companyName} - ${stockCode}`;
+                            document.getElementById('dropdown-items-container').appendChild(dropdownItem);
+                          }
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card tale-bg">
+                <div class="card-body">
+                  <p class="font-weight-large" id="today-date">{{ticker}} 기업정보</p>
+                  <div class="card">
+                    {{#nasdaq100}}
+                    <div class="card-body">
+                      <p class="font-weight-medium">{{established}}</p>
+                      <p class="font-weight-medium">{{CEO}}</p>
+                      <p class="font-weight-medium">{{products}}</p>
+                      <p class="font-weight-medium">{{milestones}}</p>
+                      <p class="font-weight-medium">{{industry}}</p>
+                    </div>
+                    {{/nasdaq100}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin">
+              <div id="newsSummary" class="detailed-report-carousel position-static pt-2">
+                <div class="slider-wrapper">
+                  <div class="slider-container">
+                    {{#summary}}
+                    <div class="slider-item">
+                      <div class="card card-gemini2">
+                        <div class="card-body">
+                          <p class="font-weight-large">오늘의 {{ticker}} 뉴스요약</p>
+                          <div class="card">
+                            <div class="card-body">
+                              <p class="font-weight-medium">{{.}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{/summary}}
+                  </div>
+                </div>
+                <button class="prev-btn">&#10094;</button>
+                <button class="next-btn">&#10095;</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 grid-margin transparent">
+              <div class="row">
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-light-danger">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 시가총액</p>
+                      <p class="font-weight-xlarge mb-2">$ {{MarketCap}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-tale">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 PER</p>
+                      <p class="font-weight-xlarge mb-2">{{per}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-light-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 PSR</p>
+                      <p class="font-weight-xlarge mb-2">{{psr}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-dark-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 PBR</p>
+                      <p class="font-weight-xlarge mb-2">{{pbr}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 stretch-card transparent">
+                  <div class="card card-light-blue">
+                    <div class="card-body">
+                      <p class="font-weight-medium mb-4">오늘의 EV/EBITDA</p>
+                      <p class="font-weight-xlarge mb-2">{{ev_ebitda}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <script src="https://code.highcharts.com/stock/highstock.js"></script>
+              <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+              <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+              <script src="https://code.highcharts.com/stock/modules/heikinashi.js"></script>
+              <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script>
+              <div id="container"></div>
+              <script src="/js/industry.js"></script>
+            </div>
+          </div>
+          
+            <button id="openModalBtn">볼린저밴드 해석하는 법</button>
+            <div id="bollingerModal" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                  <h2>현재 주가 위치 분석</h2>
+                    <p>현재 주가가 이동평균선 근처에 위치해 있다면, 이는 시장이 비교적 안정적인 상태임을 의미합니다.
+                      주가가 상단 밴드에 가까워질 경우, 이는 시장이 과매수 상태에 접근하고 있음을 나타낼 수 있으며, 주가가 하락할 가능성이 높아질 수 있습니다.
+                      주가가 하단 밴드에 가까워질 경우, 이는 시장이 과매도 상태에 접근하고 있음을 나타낼 수 있으며, 주가가 상승할 가능성이 높아질 수 있습니다.
+                    </p>
+                  <h2>밴드 수축 및 확장</h2>
+                    <p>밴드가 수축하면 시장의 변동성이 낮아졌음을 나타내며, 이는 곧 큰 변동이 발생할 가능성을 시사합니다.
+                      밴드가 확장하면 시장의 변동성이 높아졌음을 나타내며, 이는 현재 트렌드가 지속될 가능성을 시사합니다.
+                    </p>
+                  <h2>트레이딩 전략</h2>
+                    <p>
+                      밴드 터치 전략: 주가가 상단 밴드를 터치하면 매도, 하단 밴드를 터치하면 매수하는 전략을 고려할 수 있습니다.
+                      밴드 수축 후 돌파 전략: 밴드가 수축된 후 주가가 상단 밴드를 돌파하면 매수, 하단 밴드를 돌파하면 매도하는 전략을 사용할 수 있습니다.
+                    </p>
+              </div>
+            </div>
+            <script src="/js/modal.js"></script>
+        
+
+          <div class="row">
+            <div id="bollinger" style="height: 700px; min-width: 310px" class="col-md-12 grid-margin"></div>
+            <script src="/js/bollinger.js"></script>
+          </div>
+            
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">워드 클라우드</p>
+                  
+                  <!-- <div class="row">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table id="example" class="display expandable-table" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>Quote#</th>
+                              <th>Product</th>
+                              <th>Business type</th>
+                              <th>Policy holder</th>
+                              <th>Premium</th>
+                              <th>Status</th>
+                              <th>Updated at</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                      </table>
+                      </div>
+                    </div>
+                  </div> -->
+                  </div>
+                </div>
+
+                
+              </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+          </div>
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by <a href="https://www.themewagon.com/" target="_blank">Themewagon</a></span> 
+          </div>
+        </footer> 
+        <!-- partial -->
+      </div>
+      {{/company}}
+      {{^company}}
+      <h3>없는 종목입니다~</h3>
+      {{/company}}
+      <!-- main-panel ends -->
+    </div>   
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="/vendors/chart.js/Chart.min.js"></script>
+  <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <script src="/js/dataTables.select.min.js"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="/js/news_summary.js"></script>
+  <script src="/js/off-canvas.js"></script>
+  <script src="/js/hoverable-collapse.js"></script>
+  <script src="/js/template.js"></script>
+  <script src="/js/settings.js"></script>
+  <script src="/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/Chart.roundedBarCharts.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
+

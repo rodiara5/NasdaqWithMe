@@ -27,10 +27,10 @@ public class UserEntity {
 
     @NotBlank
     private String userName;
+    
     @NotBlank
     private String userPw;
 
-    
     @Email
     @Column(unique = true)
     private String userEmail;
