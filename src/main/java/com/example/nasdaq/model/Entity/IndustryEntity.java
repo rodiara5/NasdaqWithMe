@@ -30,4 +30,6 @@ public class IndustryEntity {
     private double avgPBR;
 
     private double avgEV_EBITDA;
+
+    private double avgFluc;
 }

@@ -24,7 +24,7 @@ Promise.all([
     // Highcharts 차트 생성
     Highcharts.chart('container', {
         chart: {
-            type: 'column'
+            type: 'spline'
         },
         title: {
             text: `${ticker2} vs ${industry}`,

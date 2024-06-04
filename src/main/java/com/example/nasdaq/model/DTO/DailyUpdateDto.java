@@ -37,4 +37,6 @@ public class DailyUpdateDto {
     private double pbr;
 
     private double ev_ebitda;
+
+    private double fluc;
 }

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserService {
     // select
+
     public UserDto getUserByName(String userId);
 
     public List<UserDto> getAllUser();

@@ -48,4 +48,6 @@ public class DailyUpdateEntity {
     private double pbr;
 
     private double ev_ebitda;
+
+    private double fluc;
 }

@@ -3,7 +3,8 @@ fetch(`/api/v1/nasdaq/industries`)
         .then((industryData) => {
             // Extract industry names and corresponding data
             const industryNames = industryData.map(industry => industry.industry);
-            const marketCaps = industryData.map(industry => industry.avgMarketCap / 1e12); // Convert to trillions
+            const flucValues = industryData.map(industry => industry.avgFluc);
+            //const marketCaps = industryData.map(industry => industry.avgMarketCap / 1e12); // Convert to trillions
             const perValues = industryData.map(industry => industry.avgPER);
 
             // Highcharts 차트 생성
@@ -12,25 +13,25 @@ fetch(`/api/v1/nasdaq/industries`)
                     zoomType: 'xy'
                 },
                 title: {
-                    text: 'Top 5 산업군 시가총액 & PER',
+                    text: '전날 대비 상승률 Top3 산업군',
                     align: 'left'
                 },
                 xAxis: [{
                     categories: industryNames,
                     crosshair: true,
                     accessibility: {
-                        description: 'Top 5 Industry by Market Cap'
+                        description: 'Top 3 Industry by Fluctuatuon'
                     }
                 }],
                 yAxis: [{ // Primary yAxis for Market Cap
                     labels: {
-                        format: '{value} 조',
+                        format: '{value}%',
                         style: {
                             color: Highcharts.getOptions().colors[1]
                         }
                     },
                     title: {
-                        text: '시가총액 평균 (조 단위)',
+                        text: '등락률 평균 (% 단위)',
                         style: {
                             color: Highcharts.getOptions().colors[1]
                         }
@@ -54,12 +55,12 @@ fetch(`/api/v1/nasdaq/industries`)
                     shared: true
                 },
                 series: [{
-                    name: '시가총액',
+                    name: '등락률',
                     type: 'column',
                     yAxis: 0,
-                    data: marketCaps,
+                    data: flucValues,
                     tooltip: {
-                        valueSuffix: ' 조'
+                        valueSuffix: ' %'
                     }
                 }, {
                     name: 'PER',

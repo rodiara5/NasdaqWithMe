@@ -32,14 +32,13 @@
         <a class="navbar-brand brand-logo mr-5" href="/user/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="/user/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
       </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-start">
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-center">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
         </button>
         <ul class="navbar-nav mr-lg-2">
-          
           <form id="search-form" action="/v1/nasdaq/search" method="GET">
-            <li class="nav-item nav-search d-none d-lg-block">
+            <li class="nav-item nav-search d-none d-lg-flex">
               <div class="input-group" id="search-container">
                 <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
                   <span class="input-group-text" id="search">
@@ -202,8 +201,8 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+          <div class="row align-items-center">
+            <div class="col-md-3 grid-margin stretch-card">
               <div class="card tale-bg">
                 <div class="card-body">
                   <p class="font-weight-large" id="today-date">{{ticker}} 기업정보</p>
@@ -221,7 +220,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 grid-margin">
+            <div class="col-md-5 grid-margin">
               <div id="newsSummary" class="detailed-report-carousel position-static pt-2">
                 <div class="slider-wrapper">
                   <div class="slider-container">
@@ -245,9 +244,7 @@
                 <button class="next-btn">&#10095;</button>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 grid-margin transparent">
+            <div class="col-md-4 grid-margin transparent">
               <div class="row">
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-light-danger">
@@ -267,15 +264,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4 mb-4 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="font-weight-medium mb-4">오늘의 PSR</p>
-                      <p class="font-weight-xlarge mb-2">{{psr}}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 mb-4 stretch-card transparent">
+                <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-dark-blue">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 PBR</p>
@@ -283,7 +272,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 mb-4 stretch-card transparent">
+                <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-light-blue">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 EV/EBITDA</p>
@@ -293,7 +282,49 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 grid-margin stretch-card">
+          </div>
+          <div class="row">
+            {{#edgar}}
+            <div class="col-md-6 grid-margin">
+              <div id="edgarReports" class="carousel slide detailed-report-carousel position-static pt-2" data-ride="carousel" data-interval="10000">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="card card-gemini2">
+                      <div class="card-body">
+                        <p class="font-weight-large">{{ticker}} 연간 리포트(10-K) 요약</p>
+                        <div class="card">
+                          <div class="card-body">
+                        <p class="font-weight-medium">{{summary_10k}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="card card-gemini2">
+                      <div class="card-body">
+                        <p class="font-weight-large">{{ticker}} 분기별 리포트(10-Q) 요약</p>
+                        <div class="card">
+                          <div class="card-body">
+                        <p class="font-weight-medium">{{summary_10q}}</p>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#edgarReports" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#edgarReports" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+            {{/edgar}}
+            <div class="col-md-4 grid-margin stretch-card">
               <script src="https://code.highcharts.com/stock/highstock.js"></script>
               <script src="https://code.highcharts.com/stock/modules/data.js"></script>
               <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -304,7 +335,7 @@
             </div>
           </div>
           
-            <button id="openModalBtn">볼린저밴드 해석하는 법</button>
+            <button class="btn btn-primary" id="openModalBtn">볼린저밴드 해석하는 법</button>
             <div id="bollingerModal" class="modal">
               <div class="modal-content">
                 <span class="close">&times;</span>

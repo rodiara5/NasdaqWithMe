@@ -25,4 +25,6 @@ public class IndustryDto {
     private double avgPBR;
 
     private double avgEV_EBITDA;
+
+    private double avgFluc;
 }

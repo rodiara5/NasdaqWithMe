@@ -57,6 +57,7 @@ public class IndustryServiceImpl implements IndustryService{
             dto.setAvgPSR(entity.getAvgPSR());
             dto.setAvgPBR(entity.getAvgPBR());
             dto.setAvgEV_EBITDA(entity.getAvgEV_EBITDA());
+            dto.setAvgFluc(entity.getAvgFluc());
 
             dtos.add(dto);
         }

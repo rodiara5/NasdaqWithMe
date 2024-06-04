@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.nasdaq.model.DAO.DailyUpdatesDao;
 import com.example.nasdaq.model.DTO.DailyUpdateDto;
+import com.example.nasdaq.model.DTO.HottestTickersInterface;
 import com.example.nasdaq.model.DTO.TopTickersInterface;
 import com.example.nasdaq.model.Entity.DailyUpdateEntity;
 import com.example.nasdaq.model.Repository.DailyUpdateRepository;
@@ -25,6 +26,21 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
     @Autowired
     private DailyUpdateRepository dailyUpdateRepository;
 
+    
+
+    @Override
+    public List<HottestTickersInterface> getTop3TickersByFluc(String dailydate) {
+        // TODO Auto-generated method stub
+        List<HottestTickersInterface> tickers = dailyUpdateRepository.findTop3TickerByFluc(dailydate);
+        return tickers;
+    }
+
+    @Override
+    public List<HottestTickersInterface> getWorst3TickersByFluc(String dailydate) {
+        // TODO Auto-generated method stub
+        List<HottestTickersInterface> tickers = dailyUpdateRepository.findWorst3TickerByFluc(dailydate);
+        return tickers;
+    }
 
     @Override
     public List<DailyUpdateDto> getOneDailyInfo(String ticker, String dailydate) {

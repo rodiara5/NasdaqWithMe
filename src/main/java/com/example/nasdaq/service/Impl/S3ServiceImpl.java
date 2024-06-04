@@ -1,6 +1,7 @@
 package com.example.nasdaq.service.Impl;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -18,21 +19,29 @@ public class S3ServiceImpl implements S3Service{
 
     @Override
     public String getFileFromS3(String bucket_name, String file_name) {
-        // TODO Auto-generated method stub
         StringBuilder contentBuilder = new StringBuilder();
+        BufferedReader reader = null;
+
         try {
             InputStream inputStream = s3Client.getObject(new GetObjectRequest(bucket_name, file_name)).getObjectContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
             while ((line = reader.readLine()) != null) {
-                contentBuilder.append(line).append("\n");
+                contentBuilder.append(line).append(System.lineSeparator());
             }
-            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return contentBuilder.toString();
     }
-    
 }
+

@@ -41,6 +41,7 @@ fetch(`/api/v1/nasdaq/bollinger?ticker=${ticker}`)
                 },],
 
             rangeSelector: {
+                selected:0,
                 buttons: [
                 {
                     type: "month",
