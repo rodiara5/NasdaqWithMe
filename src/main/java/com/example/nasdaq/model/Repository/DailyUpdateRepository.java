@@ -24,13 +24,15 @@ public interface DailyUpdateRepository extends JpaRepository<DailyUpdateEntity, 
     public List<DailyUpdateEntity> findByTickerContainingIgnoreCase(String ticker);
 
     // 산업군별로 per best 종목 리턴
-    @Query(value = "SELECT ticker, name FROM daily_update WHERE industry = :industry AND dailydate = :dailydate ORDER BY per DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT ticker, name FROM daily_update WHERE industry = :industry AND dailydate = :dailydate ORDER BY market_cap DESC LIMIT 1", nativeQuery = true)
     public TopTickersInterface findBestTickerByIndustry(@Param(value = "industry") String industry, @Param(value = "dailydate") String dailydate);
 
 
-    @Query(value = "SELECT ticker, name, fluc FROM daily_update WHERE dailydate = :dailydate ORDER BY fluc DESC LIMIT 3;", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT ticker, name, fluc FROM daily_update WHERE dailydate = :dailydate ORDER BY fluc DESC LIMIT 3;", nativeQuery = true)
     public List<HottestTickersInterface> findTop3TickerByFluc (@Param(value = "dailydate") String dailydate);
 
     @Query(value = "SELECT ticker, name, fluc FROM daily_update WHERE dailydate = :dailydate ORDER BY fluc ASC LIMIT 3;", nativeQuery = true)
     public List<HottestTickersInterface> findWorst3TickerByFluc (@Param(value = "dailydate") String dailydate);
+
+    public List<DailyUpdateEntity> findTop7ByTickerOrderByDailydateDesc(String ticker);
 }

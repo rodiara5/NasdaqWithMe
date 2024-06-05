@@ -22128,6 +22128,11 @@ code {
   font-size: .75rem;
 }
 
+.card.card-grey {
+  background: #FAFAFA;
+  color: #000000
+}
+
 .card.card-tale {
   background: #7DA0FA;
   color: #ffffff;

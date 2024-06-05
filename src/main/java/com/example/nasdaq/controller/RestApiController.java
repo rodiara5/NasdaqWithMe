@@ -47,17 +47,16 @@ public class RestApiController {
     }
 
     @GetMapping("/industry")
-    public IndustryDto industry(@RequestParam String industry) {
-        IndustryDto dto = industryService.getIndustryAvg(industry);
-        return dto;
+    public List<IndustryDto> industry(@RequestParam String industry) {
+        List<IndustryDto> dtos = industryService.getWeeklyInfo(industry);
+        return dtos;
     }
 
     @GetMapping("/ratios")
-    public DailyUpdateDto dailyUpdates(@RequestParam String ticker) {
-        String recentDate = dailyUpdateService.getMostRecentDate();
-        List<DailyUpdateDto> dtos = dailyUpdateService.getOneDailyInfo(ticker, recentDate);
-        DailyUpdateDto firstDto =  dtos.get(0);
-        return firstDto;
+    public List<DailyUpdateDto> dailyUpdates(@RequestParam String ticker) {
+        // String recentDate = dailyUpdateService.getMostRecentDate();
+        List<DailyUpdateDto> dtos = dailyUpdateService.getWeeklyInfo(ticker);
+        return dtos;
     }
 
     // @GetMapping("/test")

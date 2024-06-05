@@ -26,21 +26,6 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
     @Autowired
     private DailyUpdateRepository dailyUpdateRepository;
 
-    
-
-    @Override
-    public List<HottestTickersInterface> getTop3TickersByFluc(String dailydate) {
-        // TODO Auto-generated method stub
-        List<HottestTickersInterface> tickers = dailyUpdateRepository.findTop3TickerByFluc(dailydate);
-        return tickers;
-    }
-
-    @Override
-    public List<HottestTickersInterface> getWorst3TickersByFluc(String dailydate) {
-        // TODO Auto-generated method stub
-        List<HottestTickersInterface> tickers = dailyUpdateRepository.findWorst3TickerByFluc(dailydate);
-        return tickers;
-    }
 
     @Override
     public List<DailyUpdateDto> getOneDailyInfo(String ticker, String dailydate) {
@@ -110,6 +95,40 @@ public class DailyUpdateServiceImpl implements DailyUpdateService{
         // return dtos;
     }
 
-    
+    @Override
+    public List<HottestTickersInterface> getTop3TickersByFluc(String dailydate) {
+        // TODO Auto-generated method stub
+        List<HottestTickersInterface> tickers = dailyUpdateRepository.findTop3TickerByFluc(dailydate);
+        return tickers;
+    }
 
+    @Override
+    public List<HottestTickersInterface> getWorst3TickersByFluc(String dailydate) {
+        // TODO Auto-generated method stub
+        List<HottestTickersInterface> tickers = dailyUpdateRepository.findWorst3TickerByFluc(dailydate);
+        return tickers;
+    }
+
+    @Override
+    public List<DailyUpdateDto> getWeeklyInfo(String ticker) {
+        // TODO Auto-generated method stub
+        List<DailyUpdateEntity> entities = dailyUpdatesDao.getWeeklyInfo(ticker);
+        List<DailyUpdateDto> dtos = new ArrayList<>();
+
+        for(DailyUpdateEntity entity : entities){
+            DailyUpdateDto dto = new DailyUpdateDto();
+            dto.setTicker(entity.getTicker());
+            dto.setName(entity.getName());
+            dto.setDailydate(entity.getDailydate());
+            dto.setIndustry(entity.getIndustry());
+            dto.setPbr(entity.getPbr());
+            dto.setPer(entity.getPer());
+            dto.setFluc(entity.getFluc());
+
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    
 }

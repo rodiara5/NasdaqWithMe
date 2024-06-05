@@ -19,4 +19,6 @@ public interface IndustryRepository extends JpaRepository<IndustryEntity, Indust
 
     @Query(value = "SELECT industry, dailydate, avg_market_cap, avgper, avgpsr, avgpbr, avgev_ebitda, avg_fluc FROM industry WHERE dailydate = :dailydate and industry = 'NASDAQ Index'", nativeQuery = true)
     public IndustryEntity getNasdaqIndex(@Param(value = "dailydate") String dailydate);
+
+    public List<IndustryEntity> findTop7ByIndustryPKIndustryOrderByIndustryPKDailydateDesc(String Industry);
 }

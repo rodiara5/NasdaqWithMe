@@ -109,11 +109,6 @@
 
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row justify-content-center">
-            <div class="col-md-8 grid-margin">
-              <a href="/v1/nasdaq/main"><img src="/images/banner.png" style="width: 100%; height: 200px;"></a>
-            </div>
-          </div>
 
           <div class="row">
             <div class="col-md-8 grid-margin stretch-card">
@@ -171,12 +166,12 @@
             </div>
 
             <div class="col-md-4 grid-margin stretch-card">
-              <div class="card card-tale">
+              <div class="card card-light-danger">
                 <div class="card-body">
                   <p class="font-weight-large">관심 종목</p>
                   <div class="card">
                     <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">관심종목을 보려면 로그인이 필요합니다.</p>
+                      <p class="font-weight-medium" style="color:black">관심종목을 추가하려면 로그인이 필요합니다.</p>
                     </div>
                   </div>
                 </div>
@@ -189,57 +184,74 @@
             <script src="https://code.highcharts.com/modules/exporting.js"></script>
             <script src="https://code.highcharts.com/modules/export-data.js"></script>
             <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-            <div class="col-md-8 grid-margin stretch-card">
+            <div class="col-md-6 grid-margin stretch-card">
               <div class="card transparent">
                 <p class="font-weight-large">오늘의 나스닥 산업군 추천</p>
-                <div id="compareIndustry" style="width: 100%; height: 600px;"></div>
+                <div id="compareIndustry" style="width: 100%; height: 400px;"></div>
                 <script src="/js/compareIndustry.js"></script>
               </div>
             </div>
 
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card card-tale">
-                <div class="card-body">
-                  <p class="font-weight-large mb-2">산업군별 Best 종목</p>
-                  <p class="font-weight-medium">클릭 시 종목 상세로 넘어갑니다</p>
-
-                  <script>
-                    function showAlert(event) {
-                      event.preventDefault(); // 링크 기본 동작을 막습니다.
-                      alert('상세페이지 열람을 위해선 로그인이 필요합니다.');
-                      // alert 창이 닫힌 후, 사용자를 로그인 페이지로 리다이렉트
-                      window.location.href = "/v1/nasdaq/loginPage";
-                    }
-                  </script>
-
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">{{industry1}}</p>
-                      <a href="/v1/nasdaq/details?ticker={{ticker1}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker1}}  / {{name1}}</p></a>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card card-grey">
+                  <div class="card-body">
+                    <p class="font-weight-large mb-2">산업군별 Best 종목</p>
+                    <p class="font-weight-medium">클릭 시 종목 상세로 넘어갑니다</p>
+  
+                    <script>
+                      function showAlert(event) {
+                        event.preventDefault(); // 링크 기본 동작을 막습니다.
+                        alert('상세페이지 열람을 위해선 로그인이 필요합니다.');
+                        // alert 창이 닫힌 후, 사용자를 로그인 페이지로 리다이렉트
+                        window.location.href = "/v1/nasdaq/loginPage";
+                      }
+                    </script>
+  
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <p class="font-weight-medium" style="color:black">{{industry1}}</p>
+                        <a href="/v1/nasdaq/details?ticker={{ticker1}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker1}}  / {{name1}}</p></a>
+                      </div>
+                    </div>
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <p class="font-weight-medium" style="color:black">{{industry2}}</p>
+                        <a href="/v1/nasdaq/details?ticker={{ticker2}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker2}}  / {{name2}}</p></a>
+                      </div>
+                    </div>
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <p class="font-weight-medium" style="color:black">{{industry3}}</p>
+                        <a href="/v1/nasdaq/details?ticker={{ticker3}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker3}}  / {{name3}}</p></a>
+                      </div>
                     </div>
                   </div>
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">{{industry2}}</p>
-                      <a href="/v1/nasdaq/details?ticker={{ticker2}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker2}}  / {{name2}}</p></a>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card card-grey">
+                  <div class="card-body">
+                    <p class="font-weight-large mb-2">Hottest🔥</p>
+                    <p class="font-weight-medium">클릭 시 종목 상세로 넘어갑니다</p>
+                    
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <a href="/user/v1/nasdaq/details?ticker={{hotTicker1}}"><p class="font-size-24 mb-0 mt-2" style="color:black">{{hotTicker1}}  / {{hotName1}}</p></a>
+                        <p class="font-weight-medium mt-2" style="color:red">+{{hotFluc1}}%</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">{{industry3}}</p>
-                      <a href="/v1/nasdaq/details?ticker={{ticker3}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker3}}  / {{name3}}</p></a>
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <a href="/user/v1/nasdaq/details?ticker={{hotTicker2}}"><p class="font-size-24 mb-0 mt-2" style="color:black">{{hotTicker2}}  / {{hotName2}}</p></a>
+                        <p class="font-weight-medium mt-2" style="color:red">+{{hotFluc2}}%</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">{{industry4}}</p>
-                      <a href="/v1/nasdaq/details?ticker={{ticker4}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker4}}  / {{name4}}</p></a>
-                    </div>
-                  </div>
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">{{industry5}}</p>
-                      <a href="/v1/nasdaq/details?ticker={{ticker5}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker5}}  / {{name5}}</p></a>
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <a href="/user/v1/nasdaq/details?ticker={{hotTicker3}}"><p class="font-size-24 mb-0 mt-2" style="color:black">{{hotTicker3}}  / {{hotName3}}</p></a>
+                        <p class="font-weight-medium mt-2" style="color:red">+{{hotFluc3}}%</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -247,45 +259,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="row mb-10">
-          <div class="col-lg-12 mx-auto text-white">
-            <div class="col-lg-12 text-lg-center pl-lg-4">
-              <div class="container">
-                <div class="row d-flex justify-content-center mt-5">
-                <div class="col-md-12">
-                      <div class="d-flex justify-content-between align-items-center">
-                          <span class="font-weight-large">어떤 종목을 찾으시나요?</span>
-                          <span class="font-weight-medium">종목코드를 입력해주세요</span>
-                          <div class="d-flex flex-row">
-                            <button class="btn btn-primary font-weight-medium">나스닥100 종목 리스트</button>
-                          </div>
-                      </div>
-                      <div class="mt-3 inputs">
-                          <i class="fa fa-search"></i>
-                          <input type="text" class="form-control " placeholder="MSFT, AAPL, NVDA...">
-                      </div>
-                      <div class="mt-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex flex-row align-items-center">
-                            <span class="star"><i class="fa fa-star yellow"></i></span>
-                            <div class="d-flex flex-column align-items-center font-weight-medium">
-                              <span><a href="/v1/nasdaq/details?ticker=NVDA">NVIDIA</a></span>
-                              <div class="d-flex flex-row align-items-start time-text">
-                                <span class="dots"></span>
-                                <small>NVDA</small>
-                                <span class="dots"></span>
-                                <small>Semiconductors / Technology</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
       <!-- content-wrapper ends -->
     </div>

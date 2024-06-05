@@ -11,4 +11,6 @@ public interface DailyUpdatesDao {
     public String getMostRecentDate();
 
     public List<DailyUpdateEntity> getTickersContaining(String ticker);
+
+    public List<DailyUpdateEntity> getWeeklyInfo(String ticker);
 }

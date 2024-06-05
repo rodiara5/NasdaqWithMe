@@ -8,4 +8,6 @@ public interface IndustryService {
     public IndustryDto getIndustryAvg(String industry);
 
     public List<IndustryDto> getAllIndustry();
+
+    public List<IndustryDto> getWeeklyInfo(String industry);
 }
