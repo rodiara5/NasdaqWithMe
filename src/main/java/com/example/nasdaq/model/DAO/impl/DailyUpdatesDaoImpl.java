@@ -16,12 +16,15 @@ public class DailyUpdatesDaoImpl implements DailyUpdatesDao{
     private DailyUpdateRepository dailyUpdateRepository;
 
     @Override
+<<<<<<< HEAD
     public List<DailyUpdateEntity> getAllDailyInfo() {
         List<DailyUpdateEntity> entities = dailyUpdateRepository.findAllByOrderByDailydateDesc();
         return entities;
     }
 
     @Override
+=======
+>>>>>>> dev
     public List<DailyUpdateEntity> getOneDailyInfo(String ticker, String dailydate) {
         List<DailyUpdateEntity> entities = dailyUpdateRepository.findByTickerAndDailydate(ticker, dailydate);
         return entities;
@@ -39,4 +42,12 @@ public class DailyUpdatesDaoImpl implements DailyUpdatesDao{
         return tickers;
     }
 
+    @Override
+    public List<DailyUpdateEntity> getWeeklyInfo(String ticker) {
+        // TODO Auto-generated method stub
+        List<DailyUpdateEntity> entities = dailyUpdateRepository.findTop7ByTickerOrderByDailydateDesc(ticker);
+        return entities;
+    }
+    
+    
 }

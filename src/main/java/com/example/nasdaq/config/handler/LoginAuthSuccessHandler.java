@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.example.nasdaq.model.DTO.UserDto;
 import com.example.nasdaq.service.UserService;
 
 import jakarta.servlet.ServletException;
@@ -36,7 +37,17 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     // 로그인 성공시, 로그인 유무 저장 
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     userService.updateIsLoginByName(userDetails.getUsername(), true);
-    response.sendRedirect("v1/nasdaq/details?ticker=MSFT");
+
+    String userName = userDetails.getUsername();
+    UserDto userDto = userService.getUserByName(userName);
+
+    if (userName == null) {
+      response.sendRedirect("/v1/nasdaq/main");
+    } else if (userDto.getUserRole().equals("ADMIN")) {
+      response.sendRedirect("/admin/v1/nasdaq/main");
+    } else {
+      response.sendRedirect("/user/v1/nasdaq/main");
+    }
     super.onAuthenticationSuccess(request, response, authentication);
   }
 

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.nasdaq.model.DTO.UserDto;
@@ -18,10 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@RequestMapping("/v1/nasdaq")
 public class authController {
+
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/loginPage")
     public String getLoginPage(@RequestParam(value = "errorMessage", required = false) String errorMessage, Model model) {
@@ -35,12 +37,12 @@ public class authController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute UserDto dto, HttpServletResponse response) throws Exception{
+    public void register(@Valid @ModelAttribute UserDto dto, HttpServletResponse response) throws Exception{
         log.info("[WebController][register] dto > " + dto.toString());
         userService.joinUser(dto, response);
 
-        //ScriptUtils.alert(response, "회원가입에 성공하였습니다. 로그인 페이지로 이동합니다!");
-        return "redirect:/loginPage";
+        ScriptUtils.alertAndMovePage(response, "회원가입에 성공하였습니다. 로그인 페이지로 이동합니다!", "/v1/nasdaq/loginPage");
+        // return "redirect:/v1/nasdaq/loginPage";
     }
 }
 

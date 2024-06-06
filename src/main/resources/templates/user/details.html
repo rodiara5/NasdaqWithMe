@@ -29,17 +29,16 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="/user/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/user/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
       </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-start">
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-center">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
         </button>
         <ul class="navbar-nav mr-lg-2">
-          
           <form id="search-form" action="/v1/nasdaq/search" method="GET">
-            <li class="nav-item nav-search d-none d-lg-block">
+            <li class="nav-item nav-search d-none d-lg-flex">
               <div class="input-group" id="search-container">
                 <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
                   <span class="input-group-text" id="search">
@@ -63,7 +62,7 @@
                                     div.classList.add('search-item');
                                     div.textContent = ticker;
                                     div.addEventListener('click', () => {
-                                        window.location.href = `/v1/nasdaq/details?ticker=${ticker}`;
+                                        window.location.href = `/user/v1/nasdaq/details?ticker=${ticker}`;
                                     });
                                     resultsContainer.appendChild(div);
                                 });
@@ -174,8 +173,7 @@
                   <h6 class="font-weight-normal mb-0"><span class="text-primary" id="today-date">{{dailydate}}</span></h6>
                 </div>
                 <div class="col-12 col-xl-3 mb-4 mb-xl-0">
-                  <button class="btn btn-primary font-weight-bold d-flex align-items-center">오늘의 {{ticker}} 리포트 생성</button>
-                  <p class="mt-4">버튼 클릭 시 오늘 {{ticker}}의 재무지표, 뉴스기사, 그리고 공시자료를 토대로 분석 리포트를 작성해드립니다</p>
+                  <button class="btn btn-primary font-weight-bold d-flex align-items-center">관심종목 추가</button>
                 </div>
                 <div class="col-12 col-xl-5">
                  <div class="justify-content-end d-flex">
@@ -190,7 +188,7 @@
                           for (const [stockCode, companyName] of Object.entries(companyData)) {
                             const dropdownItem = document.createElement('a');
                             dropdownItem.classList.add('dropdown-item');
-                            dropdownItem.href = `/v1/nasdaq/details?ticker=${stockCode}`;
+                            dropdownItem.href = `/user/v1/nasdaq/details?ticker=${stockCode}`;
                             dropdownItem.textContent = `${companyName} - ${stockCode}`;
                             document.getElementById('dropdown-items-container').appendChild(dropdownItem);
                           }
@@ -203,9 +201,9 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-              <div class="card tale-bg">
+          <div class="row align-items-center">
+            <div class="col-md-3 grid-margin stretch-card">
+              <div class="card card-grey">
                 <div class="card-body">
                   <p class="font-weight-large" id="today-date">{{ticker}} 기업정보</p>
                   <div class="card">
@@ -222,13 +220,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 grid-margin">
+            <div class="col-md-5 grid-margin">
               <div id="newsSummary" class="detailed-report-carousel position-static pt-2">
                 <div class="slider-wrapper">
                   <div class="slider-container">
                     {{#summary}}
                     <div class="slider-item">
-                      <div class="card card-gemini2">
+                      <div class="card card-grey">
                         <div class="card-body">
                           <p class="font-weight-large">오늘의 {{ticker}} 뉴스요약</p>
                           <div class="card">
@@ -246,12 +244,10 @@
                 <button class="next-btn">&#10095;</button>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 grid-margin transparent">
+            <div class="col-md-4 grid-margin transparent">
               <div class="row">
                 <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-light-danger">
+                  <div class="card card-grey">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 시가총액</p>
                       <p class="font-weight-xlarge mb-2">$ {{MarketCap}}</p>
@@ -259,7 +255,7 @@
                   </div>
                 </div>
                 <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
+                  <div class="card grey">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 PER</p>
                       <p class="font-weight-xlarge mb-2">{{per}}</p>
@@ -268,24 +264,16 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4 mb-4 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="font-weight-medium mb-4">오늘의 PSR</p>
-                      <p class="font-weight-xlarge mb-2">{{psr}}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-grey">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 PBR</p>
                       <p class="font-weight-xlarge mb-2">{{pbr}}</p>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 mb-4 stretch-card transparent">
-                  <div class="card card-light-blue">
+                <div class="col-md-6 mb-4 stretch-card transparent">
+                  <div class="card card-grey">
                     <div class="card-body">
                       <p class="font-weight-medium mb-4">오늘의 EV/EBITDA</p>
                       <p class="font-weight-xlarge mb-2">{{ev_ebitda}}</p>
@@ -294,7 +282,49 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 grid-margin stretch-card">
+          </div>
+          <div class="row">
+            {{#edgar}}
+            <div class="col-md-6 grid-margin">
+              <div id="edgarReports" class="carousel slide detailed-report-carousel position-static pt-2" data-ride="carousel" data-interval="10000">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="card card-grey">
+                      <div class="card-body">
+                        <p class="font-weight-large">{{ticker}} 연간 리포트(10-K) 요약</p>
+                        <div class="card">
+                          <div class="card-body">
+                        <p class="font-weight-medium">{{summary_10k}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="card card-grey">
+                      <div class="card-body">
+                        <p class="font-weight-large">{{ticker}} 분기별 리포트(10-Q) 요약</p>
+                        <div class="card">
+                          <div class="card-body">
+                        <p class="font-weight-medium">{{summary_10q}}</p>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#edgarReports" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#edgarReports" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+            {{/edgar}}
+            <div class="col-md-4 grid-margin stretch-card">
               <script src="https://code.highcharts.com/stock/highstock.js"></script>
               <script src="https://code.highcharts.com/stock/modules/data.js"></script>
               <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -305,7 +335,7 @@
             </div>
           </div>
           
-            <button id="openModalBtn">볼린저밴드 해석하는 법</button>
+            <button class="btn btn-primary" id="openModalBtn">볼린저밴드 해석하는 법</button>
             <div id="bollingerModal" class="modal">
               <div class="modal-content">
                 <span class="close">&times;</span>

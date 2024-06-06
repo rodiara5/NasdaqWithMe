@@ -24,8 +24,8 @@
   <div class="container-scroller">
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="/user/v1/nasdaq/main"><img src="/images/logo_nasdaq.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/user/v1/nasdaq/main"><img src="/images/logo_mini_nasdaq.png" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-start">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -33,21 +33,21 @@
         </button>
 
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item" style="margin: 0.5em;">
-            <a class="nav-link" href="/v1/nasdaq/loginPage">
-              로그인
-            </a>
-          </li>
-          <li class="nav-item" style="margin: 0.5em;">
-            <a class="nav-link" href="/v1/nasdaq/registerPage">
-              회원가입
-            </a>
-          </li>
-          <li class="nav-item nav-settings d-none d-lg-flex" style="margin: 0.5em;">
-            <a class="nav-link" href="#">
-              <i class="icon-ellipsis"></i>
-            </a>
-          </li>
+            <li class="nav-item" style="margin: 0.5em;">
+                <a class="nav-link" href="#">
+                {{userName}}님 환영합니다!
+                </a>
+            </li>
+            <li class="nav-item" style="margin: 0.5em;">
+                <a class="nav-link" href="/v1/nasdaq/logout">
+                로그아웃
+                </a>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-flex" style="margin: 0.5em;">
+                <a class="nav-link" href="#">
+                <i class="icon-ellipsis"></i>
+                </a>
+            </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
@@ -109,6 +109,11 @@
 
       <div class="main-panel">
         <div class="content-wrapper">
+          <!-- <div class="row justify-content-center">
+            <div class="col-md-8 grid-margin">
+              <a href="/user/v1/nasdaq/main"><img src="/images/banner.png" style="width: 100%; height: 200px;"></a>
+            </div>
+          </div> -->
 
           <div class="row">
             <div class="col-md-8 grid-margin stretch-card">
@@ -118,7 +123,6 @@
                   <div class="mt-3 inputs-main input-group">
                     <input type="text" name="ticker" class="form-control" id="ticker-search" placeholder="MSFT, AAPL, NVDA 등 관심 종목의 코드를 입력하세요!">
                     <div class="input-group-append">
-                      <!-- <button class="btn btn-primary" type="button">검색</button> -->
                       <button class="btn" type="button" id="search-btn">검색</button>
                     </div>
                     <script>
@@ -135,9 +139,7 @@
                                           div.classList.add('search-item');
                                           div.textContent = ticker;
                                           div.addEventListener('click', () => {
-                                              window.location.href = "/v1/nasdaq/loginPage"
-                                              alert("상세페이지 열람을 위해선 로그인이 필요합니다.")
-                                              // window.location.href = `/v1/nasdaq/details?ticker=${ticker}`;
+                                              window.location.href = `/user/v1/nasdaq/details?ticker=${ticker}`;
                                           });
                                           resultsContainer.appendChild(div);
                                       });
@@ -152,7 +154,7 @@
                     document.getElementById('search-btn').addEventListener('click', function() {
                       var ticker = document.getElementById('ticker-search').value;
                       if(ticker) {
-                        var url = '/v1/nasdaq/details?ticker=' + encodeURIComponent(ticker);
+                        var url = '/user/v1/nasdaq/details?ticker=' + encodeURIComponent(ticker);
                         window.location.href = url;
                       } else {
                         alert('관심 종목의 코드를 입력하세요!');
@@ -171,7 +173,7 @@
                   <p class="font-weight-large">관심 종목</p>
                   <div class="card">
                     <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">관심종목을 추가하려면 로그인이 필요합니다.</p>
+                      <p class="font-weight-medium" style="color:black">관심종목</p>
                     </div>
                   </div>
                 </div>
@@ -198,34 +200,26 @@
                   <div class="card-body">
                     <p class="font-weight-large mb-2">산업군별 Best 종목</p>
                     <p class="font-weight-medium">클릭 시 종목 상세로 넘어갑니다</p>
-  
-                    <script>
-                      function showAlert(event) {
-                        event.preventDefault(); // 링크 기본 동작을 막습니다.
-                        alert('상세페이지 열람을 위해선 로그인이 필요합니다.');
-                        // alert 창이 닫힌 후, 사용자를 로그인 페이지로 리다이렉트
-                        window.location.href = "/v1/nasdaq/loginPage";
-                      }
-                    </script>
-  
+                    
                     <div class="card mb-4">
                       <div class="card-body">
                         <p class="font-weight-medium" style="color:black">{{industry1}}</p>
-                        <a href="/v1/nasdaq/details?ticker={{ticker1}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker1}}  / {{name1}}</p></a>
+                        <a href="/user/v1/nasdaq/details?ticker={{ticker1}}"><p class="font-size-24 mb-0 mt-2" style="color:black">{{ticker1}}  / {{name1}}</p></a>
                       </div>
                     </div>
                     <div class="card mb-4">
                       <div class="card-body">
                         <p class="font-weight-medium" style="color:black">{{industry2}}</p>
-                        <a href="/v1/nasdaq/details?ticker={{ticker2}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker2}}  / {{name2}}</p></a>
+                        <a href="/user/v1/nasdaq/details?ticker={{ticker2}}"><p class="font-size-24 mb-0 mt-2" style="color:black">{{ticker2}}  / {{name2}}</p></a>
                       </div>
                     </div>
                     <div class="card mb-4">
                       <div class="card-body">
                         <p class="font-weight-medium" style="color:black">{{industry3}}</p>
-                        <a href="/v1/nasdaq/details?ticker={{ticker3}}" onclick="showAlert(event)"><p class="font-weight-large mb-0 mt-2" style="color:black">{{ticker3}}  / {{name3}}</p></a>
+                        <a href="/user/v1/nasdaq/details?ticker={{ticker3}}"><p class="font-size-24 mb-0 mt-2" style="color:black">{{ticker3}}  / {{name3}}</p></a>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -253,6 +247,7 @@
                         <p class="font-weight-medium mt-2" style="color:red">+{{hotFluc3}}%</p>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>

@@ -7,26 +7,32 @@ Promise.all([
 ])
 .then(([ratioData, industryData]) => {
     // ratioData와 industryData의 형식에 맞게 변환
-    const processedRatioData = [
-        ratioData.per,
-        ratioData.peg,
-        ratioData.psr,
-        ratioData.pbr,
-        ratioData.ev_ebitda
-    ];
+    const tickerDates = ratioData.map(ticker => ticker.dailydate);
+    const tickerPers = ratioData.map(ticker => ticker.per);
+    const tickerPbrs = ratioData.map(ticker => ticker.pbr);
 
-    const processedIndustryData = [
-        industryData.avgPER,
-        industryData.avgPEG,
-        industryData.avgPSR,
-        industryData.avgPBR,
-        industryData.avgEV_EBITDA
-    ];
+    const industryDates = industryData.map(industry => industry.dailydate);
+    const industryPers = industryData.map(industry => industry.avgPER);
+    const industryPbrs = industryData.map(industry => industry.avgPBR);
+
+    // const processedRatioData = [
+    //     ratioData.per,
+    //     ratioData.psr,
+    //     ratioData.pbr,
+    //     ratioData.ev_ebitda
+    // ];
+
+    // const processedIndustryData = [
+    //     industryData.avgPER,
+    //     industryData.avgPSR,
+    //     industryData.avgPBR,
+    //     industryData.avgEV_EBITDA
+    // ];
 
     // Highcharts 차트 생성
     Highcharts.chart('container', {
         chart: {
-            type: 'column'
+            type: 'spline'
         },
         title: {
             text: `${ticker2} vs ${industry}`,
@@ -37,18 +43,32 @@ Promise.all([
             align: 'left'
         },
         xAxis: {
-            categories: ['PER', 'PEG', 'PSR', 'PBR', 'EV/EBITDA'],
+            categories: tickerDates,
             crosshair: true,
             accessibility: {
-                description: 'Ratios'
+                description: 'date'
             }
         },
-        yAxis: {
-            min: 0,
+        yAxis: [{ // Primary yAxis for Market Cap
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
             title: {
-                text: 'Value'
+                text: 'PER',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
             }
-        },
+        }],
+        // yAxis: {
+        //     min: 0,
+        //     title: {
+        //         text: 'Value'
+        //     }
+        // },
         tooltip: {
             valueSuffix: ''
         },
@@ -61,11 +81,13 @@ Promise.all([
         series: [
             {
                 name: ticker2,
-                data: processedRatioData
+                yAxis: 0,
+                data: tickerPers
             },
             {
                 name: industry,
-                data: processedIndustryData
+                yAxis: 0,
+                data: industryPers
             }
         ]
     });

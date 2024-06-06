@@ -16,13 +16,15 @@ public class IndustryDto {
 
     private String dailydate;
 
-    private double avgPER;
+    private double avgMarketCap;
 
-    private double avgPEG;
+    private double avgPER;
 
     private double avgPSR;
 
     private double avgPBR;
 
     private double avgEV_EBITDA;
+
+    private double avgFluc;
 }

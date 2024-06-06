@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.example.ScriptUtils;
 import com.example.nasdaq.service.UserService;
 
 import jakarta.servlet.ServletException;
@@ -27,8 +28,8 @@ public class LogoutAuthSuccesshandler implements LogoutSuccessHandler {
       throws IOException, ServletException {
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     userService.updateIsLoginByName(userDetails.getUsername(), false);
-
-    response.sendRedirect("/loginPage");
+    ScriptUtils.alertAndMovePage(response, "로그아웃합니다.", "/v1/nasdaq/main");
+    // response.sendRedirect("/v1/nasdaq/main");
   }
   
 }
