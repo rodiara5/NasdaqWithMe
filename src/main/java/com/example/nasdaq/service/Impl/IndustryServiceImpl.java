@@ -64,6 +64,24 @@ public class IndustryServiceImpl implements IndustryService{
         return dtos;
     }
 
+    @Override
+    public List<IndustryDto> getWeeklyInfo(String industry) {
+        // TODO Auto-generated method stub
+        List<IndustryEntity> entities = industryDao.getWeeklyInfo(industry);
+        List<IndustryDto> dtos = new ArrayList<>();
+
+        for(IndustryEntity entity : entities) {
+            IndustryDto dto = new IndustryDto();
+            dto.setIndustry(entity.getIndustryPK().getIndustry());
+            dto.setDailydate(entity.getIndustryPK().getDailydate());
+            dto.setAvgPER(entity.getAvgPER());
+            dto.setAvgPBR(entity.getAvgPBR());
+
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
     
     
 }

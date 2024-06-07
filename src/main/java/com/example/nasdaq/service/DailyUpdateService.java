@@ -19,4 +19,6 @@ public interface DailyUpdateService {
     public List<HottestTickersInterface> getTop3TickersByFluc(String dailydate);
 
     public List<HottestTickersInterface> getWorst3TickersByFluc(String dailydate);
+
+    public List<DailyUpdateDto> getWeeklyInfo(String ticker);
 }

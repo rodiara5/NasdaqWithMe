@@ -29,4 +29,12 @@ public class IndustryDaoImpl implements IndustryDao{
         return entities;
     }
 
+    @Override
+    public List<IndustryEntity> getWeeklyInfo(String industry) {
+        // TODO Auto-generated method stub
+        List<IndustryEntity> entities = industryRepository.findWeeklyIndustryInfo(industry);
+        return entities;
+    }
+
+    
 }

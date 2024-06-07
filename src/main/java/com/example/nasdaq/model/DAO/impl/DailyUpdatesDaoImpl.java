@@ -35,5 +35,13 @@ public class DailyUpdatesDaoImpl implements DailyUpdatesDao{
         List<DailyUpdateEntity> tickers = dailyUpdateRepository.findByTickerContainingIgnoreCase(ticker);
         return tickers;
     }
+
+    @Override
+    public List<DailyUpdateEntity> getWeeklyInfo(String ticker) {
+        // TODO Auto-generated method stub
+        List<DailyUpdateEntity> entities = dailyUpdateRepository.findWeeklyTickerInfo(ticker);
+        return entities;
+    }
+    
     
 }
