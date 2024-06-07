@@ -166,14 +166,15 @@
                 <div id="search-results"></div>
               </div>
             </div>
-
             <div class="col-md-4 grid-margin stretch-card">
               <div class="card card-light-danger">
                 <div class="card-body">
                   <p class="font-weight-large">관심 종목</p>
                   <div class="card">
                     <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">관심종목</p>
+                      {{#watchlists}}
+                      <a href="/user/v1/nasdaq/details?ticker={{ticker}}"><p class="font-size-24" style="color:black">{{ticker}}/{{name}}</p></a>
+                      {{/watchlists}}
                     </div>
                   </div>
                 </div>
