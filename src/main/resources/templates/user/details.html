@@ -202,10 +202,14 @@
                       if (response.data === 1) {
                         console.log(response.data)
                           watchlistButton.innerText = '관심종목 삭제';
+                          watchlistButton.classList.remove('btn-primary')
+                          watchlistButton.classList.add('btn-delete')
                           alert("관심종목에 추가되었습니다.")
                       } else if (response.data === 0) {
                         console.log(response.data)
                           watchlistButton.innerText = '관심종목 추가';
+                          watchlistButton.classList.remove('btn-delete')
+                          watchlistButton.classList.add('btn-primary')
                           alert("관심종목에서 삭제되었습니다.")
                       }
                   })

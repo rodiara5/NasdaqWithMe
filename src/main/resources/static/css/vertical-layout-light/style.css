@@ -11087,6 +11087,12 @@ fieldset:disabled .wizard > .actions a,
   border-color: #4B49AC;
 }
 
+.btn-delete {
+  color: #000;
+  background-color: #F3797E;
+  border-color: #F3797E;
+}
+
 .btn-primary:hover, .wizard > .actions a:hover {
   color: #fff;
   background-color: #3f3e91;
