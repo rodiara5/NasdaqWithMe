@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,7 @@ import com.example.nasdaq.model.DTO.DailyUpdateDto;
 import com.example.nasdaq.model.DTO.IndustryDto;
 import com.example.nasdaq.service.DailyUpdateService;
 import com.example.nasdaq.service.IndustryService;
+import com.example.nasdaq.service.WatchlistService;
 
 @RestController
 @RequestMapping("/api/v1/nasdaq")
@@ -26,6 +29,8 @@ public class RestApiController {
     @Autowired
     private IndustryService industryService;
 
+    @Autowired
+    private WatchlistService watchlistService;
 
     // java script에서 사용할 rest handler
     @GetMapping("/search")
@@ -59,10 +64,10 @@ public class RestApiController {
         return dtos;
     }
 
-    // @GetMapping("/test")
-    // public List<TopTickersDto> test(@RequestParam String industry){
-    //     List<TopTickersDto> tickers_names = dailyUpdateService.getTop5TickersByIndustry(industry);
-
-    //     return tickers_names;
-    // }
+    @PostMapping("/addWatchlist")
+    public ResponseEntity<Integer> addWatchlist(@RequestParam String userId, @RequestParam String ticker, @RequestParam String name){
+        Integer result = watchlistService.toggleWatchlist(userId, ticker, name);
+        System.out.println(result+"시발");
+        return ResponseEntity.ok(result);
+    }
 }
