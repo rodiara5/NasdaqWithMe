@@ -39,7 +39,7 @@ public class DailyUpdatesDaoImpl implements DailyUpdatesDao{
     @Override
     public List<DailyUpdateEntity> getWeeklyInfo(String ticker) {
         // TODO Auto-generated method stub
-        List<DailyUpdateEntity> entities = dailyUpdateRepository.findTop7ByTickerOrderByDailydateDesc(ticker);
+        List<DailyUpdateEntity> entities = dailyUpdateRepository.findWeeklyTickerInfo(ticker);
         return entities;
     }
     

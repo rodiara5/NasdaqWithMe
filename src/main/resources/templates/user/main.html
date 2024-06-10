@@ -166,14 +166,15 @@
                 <div id="search-results"></div>
               </div>
             </div>
-
             <div class="col-md-4 grid-margin stretch-card">
-              <div class="card card-light-danger">
+              <div class="card card-light-blue">
                 <div class="card-body">
                   <p class="font-weight-large">관심 종목</p>
                   <div class="card">
                     <div class="card-body">
-                      <p class="font-weight-medium" style="color:black">관심종목</p>
+                      {{#watchlists}}
+                      <a href="/user/v1/nasdaq/details?ticker={{ticker}}"><p class="font-size-24" style="color:black">{{ticker}}/{{name}}</p></a>
+                      {{/watchlists}}
                     </div>
                   </div>
                 </div>
@@ -196,7 +197,7 @@
 
             <div class="col-md-6 grid-margin stretch-card">
               <div class="col-md-6 grid-margin stretch-card">
-                <div class="card card-grey">
+                <div class="card tale-bg">
                   <div class="card-body">
                     <p class="font-weight-large mb-2">산업군별 Best 종목</p>
                     <p class="font-weight-medium">클릭 시 종목 상세로 넘어갑니다</p>
@@ -224,7 +225,7 @@
                 </div>
               </div>
               <div class="col-md-6 grid-margin stretch-card">
-                <div class="card card-grey">
+                <div class="card tale-bg">
                   <div class="card-body">
                     <p class="font-weight-large mb-2">Hottest🔥</p>
                     <p class="font-weight-medium">클릭 시 종목 상세로 넘어갑니다</p>

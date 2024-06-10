@@ -18,11 +18,13 @@ import com.example.nasdaq.model.DTO.DailyUpdateDto;
 import com.example.nasdaq.model.DTO.HottestTickersInterface;
 import com.example.nasdaq.model.DTO.IndustryDto;
 import com.example.nasdaq.model.DTO.TopTickersInterface;
+import com.example.nasdaq.model.DTO.WatchlistDto;
 import com.example.nasdaq.service.DailyUpdateService;
 import com.example.nasdaq.service.EdgarReportsService;
 import com.example.nasdaq.service.IndustryService;
 import com.example.nasdaq.service.Nasdaq100Service;
 import com.example.nasdaq.service.S3Service;
+import com.example.nasdaq.service.WatchlistService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,6 +47,9 @@ public class userController {
 
     @Autowired
     private Nasdaq100Service nasdaq100Service;
+
+    @Autowired
+    private WatchlistService watchlistService;
 
 
     private static final String BUCKET_NAME = "playdata-team1-bucket";
@@ -90,12 +95,15 @@ public class userController {
         
         count2 ++;
     }
+
+    List<WatchlistDto> watchlists = watchlistService.getWatchlist(user.getUsername());
+    model.addAttribute("watchlists", watchlists);
     return "/user/main";
     }
 
 
     @GetMapping("/details")
-    public String detailsPage(Model model, @RequestParam String ticker){
+    public String detailsPage(@AuthenticationPrincipal AuthUserDto user, Model model, @RequestParam String ticker){
         String recentDate = dailyUpdateService.getMostRecentDate();
         List<DailyUpdateDto> dtos = dailyUpdateService.getOneDailyInfo(ticker, recentDate);
         DailyUpdateDto firstDto = dtos.get(0);
@@ -129,6 +137,8 @@ public class userController {
         // 숫자를 포맷팅하여 세 자리마다 쉼표 추가
         model.addAttribute("MarketCap", formatNumber(firstDto.getMarket_cap()));
         model.addAttribute("edgar", edgarReportsService.getOneEdgarInfo(ticker));
+
+        model.addAttribute("userName", user.getUsername());
 
         return "/user/details";
 

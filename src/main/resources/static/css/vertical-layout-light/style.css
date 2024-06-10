@@ -11087,6 +11087,12 @@ fieldset:disabled .wizard > .actions a,
   border-color: #4B49AC;
 }
 
+.btn-delete {
+  color: #000;
+  background-color: #F3797E;
+  border-color: #F3797E;
+}
+
 .btn-primary:hover, .wizard > .actions a:hover {
   color: #fff;
   background-color: #3f3e91;
@@ -22151,14 +22157,26 @@ code {
   background: #5050b2;
 }
 
-.card.card-gemini1 {
-  background: #CCE5FF;
+.card.card-news {
+  background: #E0F2F1;
   color: #000000;
 }
 
-.card.card-gemini2 {
+.card.card-report {
   background: #E0F2F1;
   color: #000000;
+}
+
+.card-news .card-body {
+  min-height: 250px;
+  max-height: 350px; /* 카드의 고정 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 추가 */
+}
+
+.card-report .card-body {
+  min-height: 300px;
+  max-height: 400px; /* 카드의 고정 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 추가 */
 }
 
 .card.card-light-blue {

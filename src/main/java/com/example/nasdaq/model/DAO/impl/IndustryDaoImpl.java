@@ -32,7 +32,7 @@ public class IndustryDaoImpl implements IndustryDao{
     @Override
     public List<IndustryEntity> getWeeklyInfo(String industry) {
         // TODO Auto-generated method stub
-        List<IndustryEntity> entities = industryRepository.findTop7ByIndustryPKIndustryOrderByIndustryPKDailydateDesc(industry);
+        List<IndustryEntity> entities = industryRepository.findWeeklyIndustryInfo(industry);
         return entities;
     }
 

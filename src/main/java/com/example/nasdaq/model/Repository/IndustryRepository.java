@@ -20,5 +20,15 @@ public interface IndustryRepository extends JpaRepository<IndustryEntity, Indust
     @Query(value = "SELECT industry, dailydate, avg_market_cap, avgper, avgpsr, avgpbr, avgev_ebitda, avg_fluc FROM industry WHERE dailydate = :dailydate and industry = 'NASDAQ Index'", nativeQuery = true)
     public IndustryEntity getNasdaqIndex(@Param(value = "dailydate") String dailydate);
 
-    public List<IndustryEntity> findTop7ByIndustryPKIndustryOrderByIndustryPKDailydateDesc(String Industry);
+    // public List<IndustryEntity> findTop7ByIndustryPKIndustryOrderByIndustryPKDailydateDesc(String Industry);
+    // WITH RankedData AS (\n" + //
+    // "SELECT *, ROW_NUMBER() OVER (PARTITION BY DATE(dailydate)) AS rn\n" + //
+    // "FROM industry\n" + //
+    // "WHERE dailydate >= CURDATE() - INTERVAL 7 DAY\n" + //
+    // ")\n" + //
+    // "SELECT *\n" + //
+    // "FROM RankedData\n" + //
+    // "WHERE rn = 1 AND industry = :industry
+    @Query(value = "WITH RankedData AS (SELECT *, ROW_NUMBER() OVER (PARTITION BY DATE(dailydate)) AS rn FROM industry WHERE dailydate >= CURDATE() - INTERVAL 7 DAY AND industry = :industry) SELECT * FROM RankedData WHERE rn = 1", nativeQuery = true)
+    public List<IndustryEntity> findWeeklyIndustryInfo(@Param(value = "industry") String industry);
 }
