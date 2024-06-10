@@ -55,4 +55,24 @@ public class PredictpriceServiceImpl implements PredictpriceService{
 
         return dtos;
     }
+
+    @Override
+    public List<PredictpriceDto> getTickerprice(String ticker){
+
+        List<PredictpriceEntity> entities = predictpricedao.getTickerprice(ticker);
+        List<PredictpriceDto> dtos = new ArrayList<>();
+
+        for (int i = entities.size() - 1; i >= 0; i--) {
+            PredictpriceEntity entity = entities.get(i);
+            PredictpriceDto dto = new PredictpriceDto();
+            dto.setTicker(entity.getPredictpricePK().getTicker());
+            dto.setDailydate(entity.getPredictpricePK().getDailydate());
+            dto.setPrice(entity.getPrice());
+            dto.setCompare_rate(entity.getCompare_rate());
+        
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
 }

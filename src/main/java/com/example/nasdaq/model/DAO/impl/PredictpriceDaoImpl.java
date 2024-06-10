@@ -27,4 +27,10 @@ public class PredictpriceDaoImpl implements PredictpriceDao{
         return PredictpriceRepository.findTop3ByorderRateDesc();
     }
 
+    @Override
+    public List<PredictpriceEntity> getTickerprice(String ticker) {
+
+        return PredictpriceRepository.findticker5day(ticker);
+    }
+
 }

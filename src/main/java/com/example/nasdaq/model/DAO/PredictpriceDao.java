@@ -9,6 +9,7 @@ public interface PredictpriceDao {
     
     public List<PredictpriceEntity> findTop3predict_price();
     
+    public List<PredictpriceEntity> getTickerprice(String ticker);
     
         
     

@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.nasdaq.model.DTO.DailyUpdateDto;
 import com.example.nasdaq.model.DTO.IndustryDto;
+import com.example.nasdaq.model.DTO.PredictpriceDto;
 import com.example.nasdaq.service.DailyUpdateService;
 import com.example.nasdaq.service.IndustryService;
+import com.example.nasdaq.service.PredictpriceService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/v1/nasdaq")
+@Slf4j
 public class RestApiController {
     
 
@@ -25,6 +30,9 @@ public class RestApiController {
 
     @Autowired
     private IndustryService industryService;
+
+    @Autowired
+    private PredictpriceService predictpriceService;
 
 
     // java script에서 사용할 rest handler
@@ -57,6 +65,15 @@ public class RestApiController {
         // String recentDate = dailyUpdateService.getMostRecentDate();
         List<DailyUpdateDto> dtos = dailyUpdateService.getWeeklyInfo(ticker);
         return dtos;
+    }
+    @GetMapping("/price")
+    public List<PredictpriceDto> getprice(@RequestParam String ticker) {
+        List<PredictpriceDto> dtos = predictpriceService.getTickerprice(ticker);
+        log.info("dtos: " + dtos);
+        return dtos;
+
+        
+
     }
 
     // @GetMapping("/test")
