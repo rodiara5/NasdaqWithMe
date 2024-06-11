@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.ScriptUtils;
+import com.example.nasdaq.exception.CustomException;
+import com.example.nasdaq.exception.ErrorCode;
 import com.example.nasdaq.model.DAO.UserDao;
 import com.example.nasdaq.model.DTO.UserDto;
 import com.example.nasdaq.model.Entity.UserEntity;
@@ -72,7 +75,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void insertUser(UserDto dto) throws Exception{
+    public void insertUser(UserDto dto) throws CustomException{
         // TODO Auto-generated method stub
         UserEntity entity = new UserEntity();
         entity.setUserId(dto.getUserId());
@@ -119,7 +122,8 @@ public class UserServiceImpl implements UserService{
 
         // 이미 아이디가 존재한다면
         if (userDao.getUserByName(dto.getUserId()) != null){
-            ScriptUtils.alertAndMovePage(response, "이미 존재하는 아이디가 있습니다.", "/v2/web/registerPage");
+            // ScriptUtils.alertAndMovePage(response, "이미 존재하는 아이디가 있습니다.", "/v2/web/registerPage");
+            throw new CustomException(ErrorCode.DUPLICATE_RESOURCE);
         }
 
         // 비밀번호 암호화 적용
@@ -153,7 +157,10 @@ public class UserServiceImpl implements UserService{
         // TODO Auto-generated method stub
         UserEntity userEntity = userDao.getUserByName(userId);
         if(userEntity != null){
-            ScriptUtils.alertAndBackPage(response, "이미 존재하는 아이디입니다.");
+            ScriptUtils.alert(response, "이미 존재하는 아이디입니다.");
+            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
+            
+
         }
         else {
             ScriptUtils.alertAndBackPage(response, "사용하실 수 있는 아이디입니다!");
