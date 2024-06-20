@@ -368,16 +368,11 @@ def execute(tickers):
                 continue
 
         # SQL 구문 작성
-        SQL1_INSERT ='''
+        SQL1 ='''
         INSERT INTO daily_update (dailydate, ticker, name, industry, news_summary, market_cap, per, psr, pbr, ev_ebitda, fluc, close_price) 
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         '''
 
-        SQL1_UPDATE = '''
-        UPDATE daily_update
-        SET name = %s, industry = %s, news_summary = %s, market_cap = %s, per = %s, psr = %s, pbr = %s, ev_ebitda = %s, fluc = %s, close_price = %s
-        WHERE dailydate = %s AND ticker = %s
-        '''
         # 기사가 없는 경우
         if count == 0:
             date = today
@@ -402,19 +397,12 @@ def execute(tickers):
             # DB에 데이터가 이미 존재하는지 여부
             try:
                 with conn.cursor() as cursor:
-                    cursor.execute("SELECT COUNT(*) FROM daily_update WHERE dailydate = %s AND ticker = %s", (date, ticker))
-                    result = cursor.fetchone()
-            
-                    if result[0] == 0:
-                        cursor.execute(SQL1_INSERT, (df["date"][0].strftime("%Y-%m-%d"), ticker, name, industry, summary, market_cap, per, psr, pbr, ev_ebitda, fluc, close_price))
-                    else:
-                        cursor.execute(SQL1_UPDATE, (name, industry, summary, market_cap, per, psr, pbr, ev_ebitda, fluc, close_price, df["date"][0].strftime("%Y-%m-%d"), ticker))
-                    
+                    cursor.execute(SQL1, (df["date"][0].strftime("%Y-%m-%d"), ticker, name, industry, summary, market_cap, per, psr, pbr, ev_ebitda, fluc, close_price))
                     conn.commit()
-                    print(f"{ticker} insert/update 완료")
+                    print(f"{ticker} insert 완료")
 
             except Exception as e:
-                print(f"Failed to insert/update data for {ticker}: {e}")
+                print(f"Failed to insert data for {ticker}: {e}")
                 conn.rollback()
         
         # 기사가 있는경우
@@ -439,14 +427,7 @@ def execute(tickers):
                 
                 try:
                     with conn.cursor() as cursor:
-                        cursor.execute("SELECT COUNT(*) FROM daily_update WHERE dailydate = %s AND ticker = %s", (date, ticker))
-                        result = cursor.fetchone()
-                        
-                        if result[0] == 0:
-                            cursor.execute(SQL1_INSERT, (df["date"][0].strftime("%Y-%m-%d"), ticker, name, industry, summary, market_cap, per, psr, pbr, ev_ebitda, close_price))
-                        else:
-                            cursor.execute(SQL1_UPDATE, (name, industry, summary, market_cap, per, psr, pbr, ev_ebitda, close_price, df["date"][0].strftime("%Y-%m-%d"), ticker))
-                        
+                        cursor.execute(SQL1, (df["date"][0].strftime("%Y-%m-%d"), ticker, name, industry, summary, market_cap, per, psr, pbr, ev_ebitda, fluc, close_price))
                         conn.commit()
                         print(f"{ticker} insert/update 완료")
                 
