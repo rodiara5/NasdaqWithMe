@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService{
 
         }
         else {
-            ScriptUtils.alertAndBackPage(response, "사용하실 수 있는 아이디입니다!");
+            ScriptUtils.alertAndBackPage(response, "사용하실     수 있는 아이디입니다!");
         }
     }
 
