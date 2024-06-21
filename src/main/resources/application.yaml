@@ -20,7 +20,11 @@ cloud:
             auto: false
         credentials:
             access-key: AKIA2UC3EZ72I3S4NIGI
+<<<<<<< HEAD
             secret-key: 
+=======
+            secret-key:
+>>>>>>> 46f02b1 (ui fix)
 
 spring:
     output:
