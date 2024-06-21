@@ -34,6 +34,27 @@ public class WatchlistServiceImpl implements WatchlistService{
         return dtos;
     }
 
+    
+
+
+    @Override
+    public WatchlistDto getOneWatchlist(String userId, String ticker) {
+        // TODO Auto-generated method stub
+        WatchlistEntity entity = watchlistDao.getOneWatchlist(userId, ticker);
+        WatchlistDto dto = new WatchlistDto();
+        if (entity != null){
+            dto.setUserId(entity.getUserId());
+            dto.setTicker(entity.getTicker());
+            dto.setName(entity.getName());
+
+            return dto;
+        }
+        return null;
+    }
+
+
+
+
     @Override
     public Integer toggleWatchlist(String userId, String ticker, String name) {
         // TODO Auto-generated method stub

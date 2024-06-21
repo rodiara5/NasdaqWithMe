@@ -1,36 +1,26 @@
 package com.example.nasdaq.exception;
 
-import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
 
-import org.springframework.http.ResponseEntity;
-
-import com.example.ScriptUtils;
-
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
+// @Builder
 @Getter
-@Builder
+@AllArgsConstructor
 public class ErrorResponse {
-    private final LocalDateTime timestamp = LocalDateTime.now();
-    private final int status;
-    private final String error;
-    private final String code;
+    private final int statusCode;
+    private final HttpStatus httpStatus;
     private final String message;
 
-    public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode) {
-        
-       
-
-        return ResponseEntity
-                .status(errorCode.getHttpStatus())
-                .body(ErrorResponse.builder()
-                        .status(errorCode.getHttpStatus().value())
-                        .error(errorCode.getHttpStatus().name())
-                        .code(errorCode.name())
-                        .message(errorCode.getDetail())
-                        .build()
-                );
-    }
+    // public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode) {
+    //     return ResponseEntity
+    //             .status(errorCode.getHttpStatus())
+    //             .body(ErrorResponse.builder()
+    //                     .status(errorCode.getHttpStatus())
+    //                     .message(errorCode.getDetail())
+    //                     .build()
+    //             );
+    // }
 }
