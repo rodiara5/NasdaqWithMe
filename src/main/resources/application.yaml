@@ -19,8 +19,16 @@ cloud:
         stack:
             auto: false
         credentials:
+<<<<<<< HEAD
             access-key: AKIA2UC3EZ72D6WRUE4B
+=======
+            access-key: AKIA2UC3EZ72I3S4NIGI
+<<<<<<< HEAD
+>>>>>>> 6bb71b404eaade85f63931b4ad85bd8a4c7a9ce0
             secret-key: 
+=======
+            secret-key:
+>>>>>>> 46f02b1 (ui fix)
 
 spring:
     output:
