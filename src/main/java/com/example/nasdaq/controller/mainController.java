@@ -36,6 +36,7 @@ public class mainController {
     public String mainPage(Model model) throws Exception{
 
     String recentDate = dailyUpdateService.getMostRecentDate();
+    log.info("날짜=================="+dailyUpdateService.getMostRecentDate());
     List<IndustryDto> dtos = industryService.getAllIndustry();
     Map<String, List<String>> topFive = new HashMap<>();
 

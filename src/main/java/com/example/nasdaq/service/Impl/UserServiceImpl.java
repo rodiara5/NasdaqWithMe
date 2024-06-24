@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService{
             ScriptUtils.alert(response, "이미 존재하는 아이디입니다.");
         }
         else {
-            ScriptUtils.alertAndBackPage(response, "사용하실 수 있는 아이디입니다!");
+            ScriptUtils.alertAndBackPage(response, "사용하실     수 있는 아이디입니다!");
         }
     }
 

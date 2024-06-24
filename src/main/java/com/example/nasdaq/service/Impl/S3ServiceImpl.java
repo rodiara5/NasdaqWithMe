@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.example.nasdaq.service.S3Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class S3ServiceImpl implements S3Service{
 
     @Autowired AmazonS3 s3Client;
@@ -24,7 +28,7 @@ public class S3ServiceImpl implements S3Service{
 
         try {
             InputStream inputStream = s3Client.getObject(new GetObjectRequest(bucket_name, file_name)).getObjectContent();
-            reader = new BufferedReader(new InputStreamReader(inputStream));
+            reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -41,6 +45,7 @@ public class S3ServiceImpl implements S3Service{
                 }
             }
         }
+        log.info(contentBuilder.toString());
         return contentBuilder.toString();
     }
 }

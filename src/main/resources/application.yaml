@@ -19,14 +19,14 @@ cloud:
         stack:
             auto: false
         credentials:
-            access-key: AKIA2UC3EZ72I3S4NIGI
+            access-key: AKIA2UC3EZ72D6WRUE4B
+
             secret-key: 
 
 spring:
     output:
         ansi:
             enabled: always
-    
     # mustache 설정
     mustache:
         prefix: classpath:templates/
