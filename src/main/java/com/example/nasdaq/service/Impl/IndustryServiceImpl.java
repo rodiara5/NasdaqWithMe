@@ -12,7 +12,10 @@ import com.example.nasdaq.model.DTO.IndustryDto;
 import com.example.nasdaq.model.Entity.IndustryEntity;
 import com.example.nasdaq.service.IndustryService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class IndustryServiceImpl implements IndustryService{
     
     @Autowired
@@ -26,6 +29,7 @@ public class IndustryServiceImpl implements IndustryService{
         // TODO Auto-generated method stub
 
         String recentDate = dailyUpdatesDao.getMostRecentDate();
+        log.info("날짜==========="+recentDate);
         IndustryEntity entity = industryDao.getIndustryAvg(industry, recentDate);
         IndustryDto dto = new IndustryDto();
         
