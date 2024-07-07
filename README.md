@@ -2,8 +2,6 @@
 
 **아침에 화장실에서 한 눈에 확인 가능한 AI융합 주식정보 제공 서비스**
 
-![Service Logo](https://github.com/KwonYeonghoo/nasdaq/tree/main/logo.png)
-
 ---
 
 ## 프로젝트 개요 📈
